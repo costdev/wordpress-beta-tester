@@ -12,7 +12,6 @@
  * WPBT_Bootstrap
  */
 class WPBT_Bootstrap {
-
 	/**
 	 * Holds main plugin file.
 	 *
@@ -37,7 +36,7 @@ class WPBT_Bootstrap {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $file Main plugin file.
+	 * @param  string $file Main plugin file.
 	 * @return void
 	 */
 	public function __construct( $file ) {
@@ -61,19 +60,42 @@ class WPBT_Bootstrap {
 				'stream-option' => '',
 			)
 		);
-
-		// Switch from v2 to v3.
-		if ( empty( self::$options['channel'] ) ) {
-			self::$options['channel'] = 'branch-development';
-		}
-		if ( empty( self::$options['stream-option'] ) ) {
-			self::$options['stream-option'] = '';
-		}
+		$this->v2_v3_preference_switcher();
 
 		// TODO: I really want to do this, but have to wait for PHP 5.4.
 		// TODO: ( new WP_Beta_Tester( $this->file, self::$options ) )->run();
 		$wpbt = new WP_Beta_Tester( $this->file, self::$options );
 		$wpbt->run();
+	}
+
+	/**
+	 * Gracefully transfer v2 settings to v4.
+	 *
+	 * @since 3.0.0
+	 * @return void
+	 */
+	private function v2_v3_preference_switcher() {
+		if ( isset( self::$options['stream'] ) && ! isset( self::$options['channel'] ) ) {
+			switch ( self::$options['stream'] ) {
+				case 'point':
+					self::$options['channel']       = 'branch-development';
+					self::$options['stream-option'] = '';
+					break;
+				case 'beta-rc-point':
+					self::$options['channel']       = 'branch-development';
+					self::$options['stream-option'] = 'beta';
+					break;
+				case 'unstable':
+					self::$options['channel']       = 'development';
+					self::$options['stream-option'] = '';
+					break;
+				case 'beta-rc-unstable':
+					self::$options['channel']       = 'development';
+					self::$options['stream-option'] = 'beta';
+					break;
+			}
+			update_site_option( 'wp_beta_tester', (array) self::$options );
+		}
 	}
 
 	/**
