@@ -12,7 +12,6 @@
  * WPBT_Settings
  */
 class WPBT_Settings {
-
 	/**
 	 * Placeholder for main class.
 	 *
@@ -30,8 +29,8 @@ class WPBT_Settings {
 	/**
 	 * Constructor.
 	 *
-	 * @param WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
-	 * @param mixed          $options Saved site options.
+	 * @param  WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
+	 * @param  mixed          $options        Saved site options.
 	 * @return void
 	 */
 	public function __construct( WP_Beta_Tester $wp_beta_tester, $options ) {
@@ -184,7 +183,7 @@ class WPBT_Settings {
 		echo '<nav class="nav-tab-wrapper" aria-label="Secondary menu">';
 		foreach ( $this->settings_tabs() as $key => $name ) {
 			$active = ( $current_tab === $key ) ? 'nav-tab-active' : '';
-			echo( wp_kses_post( '<a class="nav-tab ' . $active . '" href="?page=wp-beta-tester&tab=' . $key . '">' . $name . '</a>' ) );
+			echo wp_kses_post( '<a class="nav-tab ' . $active . '" href="?page=wp-beta-tester&tab=' . $key . '">' . $name . '</a>' );
 		}
 		echo '</nav>';
 	}
@@ -203,7 +202,7 @@ class WPBT_Settings {
 		) {
 			echo '<div class="updated"><p>';
 			esc_html_e( 'Saved.', 'wordpress-beta-tester' );
-			echo( '<span style="padding:0 2em;">' . wp_kses_post( __( 'Why don&#8217;t you <a href="update-core.php">head on over and upgrade now</a>.', 'wordpress-beta-tester' ) ) . '</span>' );
+			echo '<span style="padding:0 2em;">' . wp_kses_post( __( 'Why don&#8217;t you <a href="update-core.php">head on over and upgrade now</a>.', 'wordpress-beta-tester' ) ) . '</span>';
 			echo '</p></div>';
 		}
 	}
@@ -237,7 +236,7 @@ class WPBT_Settings {
 			<h1><?php esc_html_e( 'Beta Testing WordPress', 'wordpress-beta-tester' ); ?></h1>
 			<?php $this->options_tabs(); ?>
 			<div class="updated fade">
-				<p><?php echo( wp_kses_post( __( '<strong>Please note:</strong> Once you have switched your website to one of these beta versions of software, it will not always be possible to downgrade as the database structure may be updated during the development of a major release.', 'wordpress-beta-tester' ) ) ); ?></p>
+				<p><?php echo wp_kses_post( __( '<strong>Please note:</strong> Once you have switched your website to one of these beta versions of software, it will not always be possible to downgrade as the database structure may be updated during the development of a major release.', 'wordpress-beta-tester' ) ); ?></p>
 			</div>
 		<?php
 

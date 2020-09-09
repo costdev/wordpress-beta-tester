@@ -12,7 +12,6 @@
  * WPBT_Bootstrap
  */
 class WPBT_Bootstrap {
-
 	/**
 	 * Holds main plugin file.
 	 *
@@ -37,7 +36,7 @@ class WPBT_Bootstrap {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $file Main plugin file.
+	 * @param  string $file Main plugin file.
 	 * @return void
 	 */
 	public function __construct( $file ) {
@@ -57,14 +56,46 @@ class WPBT_Bootstrap {
 		self::$options = get_site_option(
 			'wp_beta_tester',
 			array(
-				'stream' => 'point',
-				'revert' => true,
+				'channel'       => 'branch-development',
+				'stream-option' => '',
 			)
 		);
+		$this->v2_v3_settings_migrator();
+
 		// TODO: I really want to do this, but have to wait for PHP 5.4.
-		// TODO: ( new WP_Beta_Tester( $this->file ) )->run( $this->options );
-		$wpbt = new WP_Beta_Tester( $this->file );
-		$wpbt->run( self::$options );
+		// TODO: ( new WP_Beta_Tester( $this->file, self::$options ) )->run();
+		$wpbt = new WP_Beta_Tester( $this->file, self::$options );
+		$wpbt->run();
+	}
+
+	/**
+	 * Gracefully transfer v2 settings to v4.
+	 *
+	 * @since 3.0.0
+	 * @return void
+	 */
+	private function v2_v3_settings_migrator() {
+		if ( isset( self::$options['stream'] ) && ! isset( self::$options['channel'] ) ) {
+			switch ( self::$options['stream'] ) {
+				case 'point':
+					self::$options['channel']       = 'branch-development';
+					self::$options['stream-option'] = '';
+					break;
+				case 'beta-rc-point':
+					self::$options['channel']       = 'branch-development';
+					self::$options['stream-option'] = 'beta';
+					break;
+				case 'unstable':
+					self::$options['channel']       = 'development';
+					self::$options['stream-option'] = '';
+					break;
+				case 'beta-rc-unstable':
+					self::$options['channel']       = 'development';
+					self::$options['stream-option'] = 'beta';
+					break;
+			}
+			update_site_option( 'wp_beta_tester', (array) self::$options );
+		}
 	}
 
 	/**
@@ -94,7 +125,6 @@ class WPBT_Bootstrap {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		register_activation_hook( $this->file, array( $this, 'activate' ) );
 		register_deactivation_hook( $this->file, array( $this, 'deactivate' ) );
-		add_filter( 'site_option_wp_beta_tester', array( $this, 'fix_stream' ) );
 	}
 
 	/**
@@ -115,7 +145,7 @@ class WPBT_Bootstrap {
 	 */
 	public function activate() {
 		delete_site_transient( 'update_core' );
-		$wpbt        = new WP_Beta_Tester( $this->file );
+		$wpbt        = new WP_Beta_Tester( $this->file, self::$options );
 		$wpbt_extras = new WPBT_Extras( $wpbt, self::$options );
 		$wpbt_extras->activate();
 	}
@@ -129,27 +159,10 @@ class WPBT_Bootstrap {
 	 */
 	public function deactivate() {
 		delete_site_transient( 'update_core' );
-		$wpbt = new WP_Beta_Tester( $this->file );
+		$wpbt = new WP_Beta_Tester( $this->file, self::$options );
 		// TODO: ( new WPBT_Extras( $wpbt, self::$options ) )->deactivate();
 		$wpbt_extras = new WPBT_Extras( $wpbt, self::$options );
 		$wpbt_extras->deactivate();
-	}
-
-	/**
-	 * Fix stream option for when `beta-rc` set but current version
-	 * isn't a `beta|RC` version.
-	 *
-	 * @param array $value Array of options values from `wp_beta_tester` option.
-	 *
-	 * @return array
-	 */
-	public function fix_stream( $value ) {
-		if ( is_array( $value ) && 0 === strpos( $value['stream'], 'beta-rc' )
-			&& 1 !== preg_match( '/alpha|beta|RC/', get_bloginfo( 'version' ) ) ) {
-			$value['stream'] = str_replace( 'beta-rc-', '', $value['stream'] );
-		}
-
-		return $value;
 	}
 
 	/**
@@ -163,7 +176,6 @@ class WPBT_Bootstrap {
 		require_once $this->dir . '/src/WPBT/WPBT_Settings.php';
 		require_once $this->dir . '/src/WPBT/WPBT_Core.php';
 		require_once $this->dir . '/src/WPBT/WPBT_Extras.php';
-		require_once $this->dir . '/src/WPBT/WPBT_Beta_RC.php';
 		require_once $this->dir . '/src/WPBT/WPBT_Help.php';
 		require_once $this->dir . '/vendor/WPConfigTransformer.php';
 	}

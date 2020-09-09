@@ -12,7 +12,6 @@
  * WPBT_Extras
  */
 class WPBT_Extras {
-
 	/**
 	 * Placeholder for saved options.
 	 *
@@ -30,8 +29,8 @@ class WPBT_Extras {
 	/**
 	 * Constructor.
 	 *
-	 * @param WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
-	 * @param array          $options Site options.
+	 * @param  WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
+	 * @param  array          $options        Site options.
 	 * @return void
 	 */
 	public function __construct( WP_Beta_Tester $wp_beta_tester, $options ) {
@@ -83,7 +82,7 @@ class WPBT_Extras {
 	/**
 	 * Add class settings tab.
 	 *
-	 * @param array $tabs Settings tabs.
+	 * @param  array $tabs Settings tabs.
 	 * @return array
 	 */
 	public function add_settings_tab( $tabs ) {
@@ -144,13 +143,12 @@ class WPBT_Extras {
 				)
 			);
 		}
-
 	}
 
 	/**
 	 * Save settings.
 	 *
-	 * @param mixed $post_data $_POST data.
+	 * @param  mixed $post_data $_POST data.
 	 * @return void
 	 */
 	public function save_settings( $post_data ) {
@@ -172,7 +170,7 @@ class WPBT_Extras {
 	/**
 	 * Filter saved setting to remove unchecked checkboxes.
 	 *
-	 * @param array $checked Options.
+	 * @param  array $checked Options.
 	 * @return bool
 	 */
 	private function get_unchecked_options( $checked ) {
@@ -206,7 +204,7 @@ class WPBT_Extras {
 	/**
 	 * Filter saved settings to get checked options.
 	 *
-	 * @param mixed $checked Option.
+	 * @param  mixed $checked Option.
 	 * @return bool
 	 */
 	private function get_checked_options( $checked ) {
@@ -216,13 +214,12 @@ class WPBT_Extras {
 	/**
 	 * Update Feature Flag constants in wp-config.php.
 	 *
-	 * @param array $old Current value of self::$options.
-	 * @param array $new New value of $options.
+	 * @param  array $old Current value of self::$options.
+	 * @param  array $new New value of $options.
 	 * @return void
 	 */
 	private function update_constants( $old, $new ) {
-		unset( $new['skip_autoupdate_email'] );
-		unset( $old['skip_autoupdate_email'] );
+		unset( $new['skip_autoupdate_email'], $old['skip_autoupdate_email'] );
 
 		$remove = array_diff_assoc( $old, $new );
 		$add    = array_diff_assoc( $new, $old );
@@ -240,7 +237,7 @@ class WPBT_Extras {
 	 *
 	 * @uses https://github.com/wp-cli/wp-config-transformer
 	 *
-	 * @param array $add Constants to add to wp-config.php.
+	 * @param  array $add Constants to add to wp-config.php.
 	 * @return void|array
 	 */
 	private function add_constants( $add ) {
@@ -266,7 +263,7 @@ class WPBT_Extras {
 	 *
 	 * @uses https://github.com/wp-cli/wp-config-transformer
 	 *
-	 * @param array $remove Constants to remove from wp-config.php.
+	 * @param  array $remove Constants to remove from wp-config.php.
 	 * @return void
 	 */
 	private function remove_constants( $remove ) {
@@ -286,7 +283,7 @@ class WPBT_Extras {
 	/**
 	 * Redirect page/tab after saving options.
 	 *
-	 * @param mixed $option_page Settings page.
+	 * @param  mixed $option_page Settings page.
 	 * @return array
 	 */
 	public function save_redirect_page( $option_page ) {
@@ -305,8 +302,8 @@ class WPBT_Extras {
 	/**
 	 * Create core settings page.
 	 *
-	 * @param array  $tab Settings tab.
-	 * @param string $action Form action.
+	 * @param  array  $tab    Settings tab.
+	 * @param  string $action Form action.
 	 * @return void
 	 */
 	public function add_admin_page( $tab, $action ) {
@@ -337,8 +334,9 @@ class WPBT_Extras {
 		// Disable update emails on success.
 		add_filter(
 			'auto_core_update_send_email',
-			function( $true, $type ) {
+			function ( $true, $type ) {
 				$true = 'success' === $type ? false : $true;
+
 				return $true;
 			},
 			10,
@@ -348,7 +346,7 @@ class WPBT_Extras {
 		// Disable sending debug email if no failures.
 		add_filter(
 			'automatic_updates_debug_email',
-			function( $email, $failures ) {
+			function ( $email, $failures ) {
 				$empty_email = array(
 					'to'      => null,
 					'subject' => null,
@@ -356,6 +354,7 @@ class WPBT_Extras {
 					'headers' => null,
 				);
 				$email       = 0 === $failures ? $empty_email : $email;
+
 				return $email;
 			},
 			10,

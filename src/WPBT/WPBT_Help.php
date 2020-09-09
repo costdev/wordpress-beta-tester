@@ -56,7 +56,7 @@ class WPBT_Help {
 			array(
 				'id'      => 'beta/RC',
 				'title'   => __( 'Beta/RC', 'wordpress-beta-tester' ),
-				'content' => '<p>' . __( 'You must currently be running a <em>Point release nightly</em> or <em>Bleeding edge nightly</em> before the option to select the specific <em>Beta/RC</em> stream will display. Once selected you will only see an update notice when the next release, RC, or beta is available.', 'wordpress-beta-tester' ) . '</p>',
+				'content' => '<p>' . __( 'You must select either the <em>Point release</em> or <em>Bleeding edge</em> channel. Then select the <em>Beta/RC Only</em> or <em>Release Candidates Only</em> stream. Once saved you will only see an update notice when the next release, RC, or beta is available.', 'wordpress-beta-tester' ) . '</p>',
 			)
 		);
 
