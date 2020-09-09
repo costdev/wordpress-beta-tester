@@ -60,7 +60,7 @@ class WPBT_Bootstrap {
 				'stream-option' => '',
 			)
 		);
-		$this->v2_v3_preference_switcher();
+		$this->v2_v3_settings_migrator();
 
 		// TODO: I really want to do this, but have to wait for PHP 5.4.
 		// TODO: ( new WP_Beta_Tester( $this->file, self::$options ) )->run();
@@ -74,7 +74,7 @@ class WPBT_Bootstrap {
 	 * @since 3.0.0
 	 * @return void
 	 */
-	private function v2_v3_preference_switcher() {
+	private function v2_v3_settings_migrator() {
 		if ( isset( self::$options['stream'] ) && ! isset( self::$options['channel'] ) ) {
 			switch ( self::$options['stream'] ) {
 				case 'point':
