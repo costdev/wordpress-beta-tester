@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// TODO: require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once dirname( __FILE__ ) . '/src/WPBT/WPBT_Bootstrap.php';
 // TODO: I really want to do this, but have to wait for PHP 5.4
 // TODO: ( new WPBT_Bootstrap( __FILE__ ) )->run();

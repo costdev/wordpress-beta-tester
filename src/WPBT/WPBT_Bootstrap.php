@@ -51,7 +51,6 @@ class WPBT_Bootstrap {
 	 */
 	public function run() {
 		$this->deactivate_die_wordpress_develop();
-		$this->load_requires(); // TODO: replace with composer's autoload.
 		$this->load_hooks();
 		self::$options = get_site_option(
 			'wp_beta_tester',
@@ -164,19 +163,5 @@ class WPBT_Bootstrap {
 		$wpbt_extras = new WPBT_Extras( $wpbt, self::$options );
 		$wpbt_extras->deactivate();
 	}
-
-	/**
-	 * <sarcasm>Poor man's autoloader.</sarcasm>
-	 * // TODO: replace with composer's autoload.
-	 *
-	 * @return void
-	 */
-	public function load_requires() {
-		require_once $this->dir . '/src/WPBT/WP_Beta_Tester.php';
-		require_once $this->dir . '/src/WPBT/WPBT_Settings.php';
-		require_once $this->dir . '/src/WPBT/WPBT_Core.php';
-		require_once $this->dir . '/src/WPBT/WPBT_Extras.php';
-		require_once $this->dir . '/src/WPBT/WPBT_Help.php';
-		require_once $this->dir . '/vendor/WPConfigTransformer.php';
 	}
 }
