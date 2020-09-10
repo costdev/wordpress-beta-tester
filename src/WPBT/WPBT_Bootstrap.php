@@ -133,7 +133,7 @@ class WPBT_Bootstrap {
 	 */
 	public function activate() {
 		delete_site_transient( 'update_core' );
-		WPBT_Extras( $this->file, self::$options )->activate();
+		( new WPBT_Extras( $this->file, self::$options ) )->activate();
 	}
 
 	/**
@@ -145,6 +145,6 @@ class WPBT_Bootstrap {
 	 */
 	public function deactivate() {
 		delete_site_transient( 'update_core' );
-		WPBT_Extras( $this->file, self::$options )->deactivate();
+		( new WPBT_Extras( $this->file, self::$options ) )->deactivate();
 	}
 }
