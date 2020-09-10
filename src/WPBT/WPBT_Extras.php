@@ -253,6 +253,7 @@ class WPBT_Extras {
 			}
 		} catch ( \Exception $e ) {
 			$messsage = 'Caught Exception: \WPBT_Extras::add_constants() - ' . $e->getMessage();
+			// phpcs:ignore Squiz.PHP.CommentedOutCode.Found,Squiz.Commenting.InlineComment.InvalidEndChar
 			// error_log( $messsage );
 			wp_die( esc_html( $messsage ) );
 		}
@@ -275,6 +276,7 @@ class WPBT_Extras {
 			}
 		} catch ( \Exception $e ) {
 			$messsage = 'Caught Exception: \WPBT_Extras::remove_constants() - ' . $e->getMessage();
+			// phpcs:ignore Squiz.PHP.CommentedOutCode.Found,Squiz.Commenting.InlineComment.InvalidEndChar
 			// error_log( $messsage );
 			wp_die( esc_html( $messsage ) );
 		}

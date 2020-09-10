@@ -20,13 +20,6 @@ class WPBT_Bootstrap {
 	protected $file;
 
 	/**
-	 * Holds main plugin directory.
-	 *
-	 * @var $dir
-	 */
-	protected $dir;
-
-	/**
 	 * Holds plugin options.
 	 *
 	 * @var $options
@@ -41,7 +34,6 @@ class WPBT_Bootstrap {
 	 */
 	public function __construct( $file ) {
 		$this->file = $file;
-		$this->dir  = dirname( $file );
 	}
 
 	/**
@@ -61,10 +53,7 @@ class WPBT_Bootstrap {
 		);
 		$this->v2_v3_settings_migrator();
 
-		// TODO: I really want to do this, but have to wait for PHP 5.4.
-		// TODO: ( new WP_Beta_Tester( $this->file, self::$options ) )->run();
-		$wpbt = new WP_Beta_Tester( $this->file, self::$options );
-		$wpbt->run();
+		( new WP_Beta_Tester( $this->file, self::$options ) )->run();
 	}
 
 	/**
@@ -144,9 +133,7 @@ class WPBT_Bootstrap {
 	 */
 	public function activate() {
 		delete_site_transient( 'update_core' );
-		$wpbt        = new WP_Beta_Tester( $this->file, self::$options );
-		$wpbt_extras = new WPBT_Extras( $wpbt, self::$options );
-		$wpbt_extras->activate();
+		WPBT_Extras( $this->file, self::$options )->activate();
 	}
 
 	/**
@@ -158,10 +145,6 @@ class WPBT_Bootstrap {
 	 */
 	public function deactivate() {
 		delete_site_transient( 'update_core' );
-		$wpbt = new WP_Beta_Tester( $this->file, self::$options );
-		// TODO: ( new WPBT_Extras( $wpbt, self::$options ) )->deactivate();
-		$wpbt_extras = new WPBT_Extras( $wpbt, self::$options );
-		$wpbt_extras->deactivate();
-	}
+		WPBT_Extras( $this->file, self::$options )->deactivate();
 	}
 }

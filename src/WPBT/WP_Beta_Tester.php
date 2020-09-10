@@ -45,10 +45,7 @@ class WP_Beta_Tester {
 	 */
 	public function run() {
 		$this->load_hooks();
-		// TODO: I really want to do this, but have to wait for PHP 5.4
-		// TODO: ( new WPBT_Settings( $this, $options ) )->run();
-		$settings = new WPBT_Settings( $this, self::$options );
-		$settings->run();
+		( new WPBT_Settings( $this, self::$options ) )->run();
 	}
 
 	/**
@@ -137,6 +134,7 @@ class WP_Beta_Tester {
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
 
+ 		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta1' ), $url );
 
 		return wp_remote_get( $url, $args );
