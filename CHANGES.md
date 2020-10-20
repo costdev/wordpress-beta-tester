@@ -1,6 +1,7 @@
 [unreleased]
 * major refactor for new core update API, thanks @dd32!
 * now requires PHP >5.6
+* allows for overrides when using the `WP_AUTO_UPDATE_CORE` constant
 
 #### 2.2.13 / 2020-09-05
 * enclose `WPConfigTransformer` in try/catch
