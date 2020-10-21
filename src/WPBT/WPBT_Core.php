@@ -209,7 +209,7 @@ class WPBT_Core {
 	 * @return void
 	 */
 	public function stream_radio_group() {
-		if ( defined( 'WP_AUTO_UPDATE_CORE' ) && \WP_AUTO_UPDATE_CORE ) {
+		if ( $this->wp_beta_tester::$core_update_constant ) {
 			?>
 			<fieldset>
 			<tr>
@@ -280,7 +280,7 @@ class WPBT_Core {
 		unset( $next_version['point'] );
 
 		// Site is not on a beta/RC stream so use the preferred version.
-		if ( ! $beta_rc && ! empty( $next_version ) ) {
+		if ( ! $beta_rc && ! empty( $next_version ) && ! $this->wp_beta_tester::$core_update_constant ) {
 			/* translators: %s: version number */
 			return sprintf( __( 'version %s', 'wordpress-beta-tester' ), $preferred_version );
 		}
@@ -348,7 +348,7 @@ class WPBT_Core {
 			'release' => $exploded_version[0],
 		);
 		if ( ! $next_versions['beta'] || 'rc' === self::$options['stream-option']
-			|| ( defined( 'WP_AUTO_UPDATE_CORE' ) && 'rc' === \WP_AUTO_UPDATE_CORE )
+			|| 'rc' === $this->wp_beta_tester::$core_update_constant
 		) {
 			unset( $next_versions['beta'] );
 		}

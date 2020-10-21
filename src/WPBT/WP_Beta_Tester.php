@@ -27,6 +27,13 @@ class WP_Beta_Tester {
 	public static $options;
 
 	/**
+	 * Holds WP_AUTO_UPDATE_CORE if set.
+	 *
+	 * @var $core_update_constant
+	 */
+	public static $core_update_constant;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param  string $file    Main plugin file.
@@ -34,8 +41,9 @@ class WP_Beta_Tester {
 	 * @return void
 	 */
 	public function __construct( $file, $options ) {
-		$this->file    = $file;
-		self::$options = $options;
+		$this->file                 = $file;
+		self::$options              = $options;
+		self::$core_update_constant = defined( 'WP_AUTO_UPDATE_CORE' ) && in_array( \WP_AUTO_UPDATE_CORE, array( 'beta', 'rc' ), true ) ? \WP_AUTO_UPDATE_CORE : false;
 	}
 
 	/**
@@ -134,8 +142,8 @@ class WP_Beta_Tester {
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
 
-		$core_update_constant = defined( 'WP_AUTO_UPDATE_CORE' ) && in_array( \WP_AUTO_UPDATE_CORE, array( 'beta', 'rc' ), true ) ? \WP_AUTO_UPDATE_CORE : false;
-		$url                  = $core_update_constant ? add_query_arg( 'channel', $core_update_constant, $url ) : $url;
+		// Use WP_AUTO_UPDATE_CORE if set.
+		$url = self::$core_update_constant ? add_query_arg( 'channel', self::$core_update_constant, $url ) : $url;
 
  		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
