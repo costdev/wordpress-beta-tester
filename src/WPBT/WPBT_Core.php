@@ -213,8 +213,16 @@ class WPBT_Core {
 			?>
 			<fieldset>
 			<tr>
-			<th><label></label></th>
-			<td><?php esc_html_e( 'Stream options are overridden by the `WP_AUTO_UPDATE_CORE` constant.', 'wordpress-beta-tester' ); ?></td>
+				<th><label></label></th>
+				<td><?php esc_html_e( 'Stream options are overridden by the `WP_AUTO_UPDATE_CORE` constant.', 'wordpress-beta-tester' ); ?><p>
+				<?php
+				printf(
+					/* translators: %s: WP_AUTO_UPDATE_CORE setting */
+					esc_html__( '`WP_AUTO_UPDATE_CORE` is defined as `%s`.', 'wordpress-beta-tester' ),
+					esc_attr( $this->wp_beta_tester::$core_update_constant )
+				);
+				?>
+				</p></td>
 			</tr>
 			</fieldset>
 			<?php
