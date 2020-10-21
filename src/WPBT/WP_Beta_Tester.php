@@ -128,11 +128,14 @@ class WP_Beta_Tester {
 		// It's a core-update request.
 		$args['_beta_tester'] = true;
 
+		// $url = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
 		$wp_version = get_bloginfo( 'version' );
-		//$url        = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
 		$url        = empty( self::$options['stream-option'] )
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
+
+		$core_update_constant = defined( 'WP_AUTO_UPDATE_CORE' ) && in_array( \WP_AUTO_UPDATE_CORE, array( 'beta', 'rc' ), true ) ? \WP_AUTO_UPDATE_CORE : false;
+		$url                  = $core_update_constant ? add_query_arg( 'channel', $core_update_constant, $url ) : $url;
 
  		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
@@ -170,7 +173,7 @@ class WP_Beta_Tester {
 	}
 
 	/**
-	 * Get current WP release version to pass to API check.
+	 * Get current WP release version.
 	 *
 	 * @since 3.0.0
 	 * @return string $wp_version

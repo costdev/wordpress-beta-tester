@@ -209,29 +209,39 @@ class WPBT_Core {
 	 * @return void
 	 */
 	public function stream_radio_group() {
-		?>
-		<fieldset>
-		<tr>
-			<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="" class="tog" <?php checked( false, self::$options['stream-option'] ); ?> />
-			<?php esc_html_e( 'Nightlies', 'wordpress-beta-tester' ); ?>
-			</label></th>
-			<td><?php esc_html_e( 'Latest daily updates.', 'wordpress-beta-tester' ); ?></td>
-		</tr>
-
-		<tr>
-			<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="beta" class="tog" <?php checked( 'beta', self::$options['stream-option'] ); ?> />
-			<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
-			</label></th>
-			<td><?php esc_html_e( 'This is for the Beta/RC releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
-		</tr>
-		<tr>
-			<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-rc" type="radio" value="rc" class="tog" <?php checked( 'rc', self::$options['stream-option'] ); ?> />
-			<?php esc_html_e( 'Release Candidates Only', 'wordpress-beta-tester' ); ?>
-			</label></th>
-			<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
-		</tr>
-		</fieldset>
-		<?php
+		if ( defined( 'WP_AUTO_UPDATE_CORE' ) && \WP_AUTO_UPDATE_CORE ) {
+			?>
+			<fieldset>
+			<tr>
+			<th><label></label></th>
+			<td><?php esc_html_e( 'Stream options are overridden by the `WP_AUTO_UPDATE_CORE` constant.', 'wordpress-beta-tester' ); ?></td>
+			</tr>
+			</fieldset>
+			<?php
+		} else {
+			?>
+			<fieldset>
+			<tr>
+				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="" class="tog" <?php checked( false, self::$options['stream-option'] ); ?> />
+				<?php esc_html_e( 'Nightlies', 'wordpress-beta-tester' ); ?>
+				</label></th>
+				<td><?php esc_html_e( 'Latest daily updates.', 'wordpress-beta-tester' ); ?></td>
+			</tr>
+			<tr>
+				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="beta" class="tog" <?php checked( 'beta', self::$options['stream-option'] ); ?> />
+				<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
+				</label></th>
+				<td><?php esc_html_e( 'This is for the Beta/RC releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
+			</tr>
+			<tr>
+				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-rc" type="radio" value="rc" class="tog" <?php checked( 'rc', self::$options['stream-option'] ); ?> />
+				<?php esc_html_e( 'Release Candidates Only', 'wordpress-beta-tester' ); ?>
+				</label></th>
+				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
+			</tr>
+			</fieldset>
+			<?php
+		}
 	}
 
 	/**
@@ -337,7 +347,9 @@ class WPBT_Core {
 			'rc'      => $exploded_version[0] . '-RC' . ( ++$current_rc ),
 			'release' => $exploded_version[0],
 		);
-		if ( ! $next_versions['beta'] || 'rc' === self::$options['stream-option'] ) {
+		if ( ! $next_versions['beta'] || 'rc' === self::$options['stream-option']
+			|| ( defined( 'WP_AUTO_UPDATE_CORE' ) && 'rc' === \WP_AUTO_UPDATE_CORE )
+		) {
 			unset( $next_versions['beta'] );
 		}
 
