@@ -129,7 +129,7 @@ class WP_Beta_Tester {
 		$args['_beta_tester'] = true;
 
 		$wp_version = get_bloginfo( 'version' );
-		$url        = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
+		//$url        = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
 		$url        = empty( self::$options['stream-option'] )
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
@@ -173,7 +173,7 @@ class WP_Beta_Tester {
 	}
 
 	/**
-	 * Get current WP release version to pass to API check.
+	 * Get current WP release version.
 	 *
 	 * @since 3.0.0
 	 * @return string $wp_version
