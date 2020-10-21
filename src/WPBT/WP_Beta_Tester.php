@@ -128,8 +128,8 @@ class WP_Beta_Tester {
 		// It's a core-update request.
 		$args['_beta_tester'] = true;
 
+		// $url = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
 		$wp_version = get_bloginfo( 'version' );
-		//$url        = str_replace( 'version=' . $wp_version, 'version=' . $this->get_current_wp_release(), $url );
 		$url        = empty( self::$options['stream-option'] )
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
