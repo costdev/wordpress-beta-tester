@@ -134,6 +134,9 @@ class WP_Beta_Tester {
 			? add_query_arg( 'channel', self::$options['channel'], $url )
 			: add_query_arg( 'channel', self::$options['stream-option'], $url );
 
+		$core_update_constant = defined( 'WP_AUTO_UPDATE_CORE' ) && in_array( \WP_AUTO_UPDATE_CORE, array( 'beta', 'rc' ), true ) ? \WP_AUTO_UPDATE_CORE : false;
+		$url                  = $core_update_constant ? add_query_arg( 'channel', $core_update_constant, $url ) : $url;
+
  		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta1' ), $url );
 
