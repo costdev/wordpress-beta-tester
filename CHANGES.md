@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.0.0 / 2020-10-23
 * major refactor for new core update API, thanks @dd32!
 * now requires PHP >5.6
 * allows for overrides when using the `WP_AUTO_UPDATE_CORE` constant
