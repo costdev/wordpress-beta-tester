@@ -243,6 +243,7 @@ class WPBT_Core {
 				</label></th>
 				<td><?php esc_html_e( 'Latest daily updates.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
+			<?php if ( ! $this->wp_beta_tester->check_if_settings_downgrade() ) : ?>
 			<tr>
 				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="beta" class="tog" <?php checked( 'beta', self::$options['stream-option'] ); ?> />
 				<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
@@ -255,6 +256,7 @@ class WPBT_Core {
 				</label></th>
 				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
+			<?php endif; ?>
 			</fieldset>
 			<?php
 		}

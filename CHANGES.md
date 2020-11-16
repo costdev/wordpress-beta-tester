@@ -1,4 +1,5 @@
 [unreleased]
+* fix to correctly downgrade from _Bleeding edge_ to _Point release nightlies_.
 
 #### 3.0.1 - 3.0.3 / 2020-10-27
 * fixed regex to get next versions
