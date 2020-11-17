@@ -147,7 +147,7 @@ class WP_Beta_Tester {
 			$url = add_query_arg( 'version', $this->get_current_wp_release(), $url );
 		}
 
- 		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
 
 		return wp_remote_get( $url, $args );

@@ -116,13 +116,16 @@ class WPBT_Core {
 		if ( isset( $post_data['option_page'] )
 			&& 'wp_beta_tester_core' === $post_data['option_page']
 		) {
-			$options                  = isset( $post_data['wp-beta-tester'] ) ? $post_data['wp-beta-tester'] : 'branch-development';
-			self::$options['channel'] = WPBT_Settings::sanitize( $options );
+			$option_channel     = isset( $post_data['wp-beta-tester'] ) ? $post_data['wp-beta-tester'] : 'branch-development';
+			$options['channel'] = WPBT_Settings::sanitize( $option_channel );
 
-			$options_beta_rc                = isset( $post_data['wp-beta-tester-beta-rc'] ) ? $post_data['wp-beta-tester-beta-rc'] : '';
-			self::$options['stream-option'] = WPBT_Settings::sanitize( $options_beta_rc );
+			$option_beta_rc           = isset( $post_data['wp-beta-tester-beta-rc'] ) ? $post_data['wp-beta-tester-beta-rc'] : '';
+			$options['stream-option'] = WPBT_Settings::sanitize( $option_beta_rc );
 
-			update_site_option( 'wp_beta_tester', (array) self::$options );
+			$options = $this->channel_settings_migrator( $options );
+			$options = array_merge( self::$options, (array) $options );
+
+			update_site_option( 'wp_beta_tester', (array) $options );
 			add_filter( 'wp_beta_tester_save_redirect', array( $this, 'save_redirect_page' ) );
 		}
 	}
@@ -413,5 +416,36 @@ class WPBT_Core {
 		);
 
 		return $delimiters;
+	}
+
+	/**
+	 * Migrate stream during channel switch.
+	 *
+	 * @param array $options Array of channel and stream options.
+	 *
+	 * @return array
+	 */
+	private function channel_settings_migrator( $options ) {
+		if ( isset( $options['channel'], $options['stream-option'] ) ) {
+			switch ( $options['channel'] ) {
+				case 'development':
+					if ( 'branch-beta' === $options['stream-option'] ) {
+						$options['stream-option'] = 'beta';
+					} elseif ( 'branch-rc' === $options['stream-option'] ) {
+						$options['stream-option'] = 'rc';
+					}
+					break;
+				case 'branch-development':
+					if ( 'beta' === $options['stream-option'] ) {
+						$options['stream-option'] = 'branch-beta';
+					} elseif ( 'rc' === $options['stream-option'] ) {
+						$options['stream-option'] = 'branch-rc';
+					}
+					$options['stream-option'] = ''; // Hard set to Nightlies until API updated.
+					break;
+			}
+		}
+
+		return $options;
 	}
 }
