@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.0.4 / 2020-11-17
 * fix to correctly downgrade from _Bleeding edge_ to _Point release nightlies_.
 * hide stream options other than _Nightlies_ for _Point release_ channel until [new Updates API changes](https://meta.trac.wordpress.org/ticket/5511)
 * add settings for future Updates API above
