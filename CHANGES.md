@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.0.5 / 2020-11-18
 * don't show beta as a next version when on RC
 
 #### 3.0.4 / 2020-11-17
