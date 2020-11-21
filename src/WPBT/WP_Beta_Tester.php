@@ -172,12 +172,6 @@ class WP_Beta_Tester {
 				) {
 					$url = add_query_arg( 'version', $next_versions['release'], $url );
 				}
-				// Get back to trunk.
-				if ( empty( self::$options['stream-option'] ) ) {
-					if ( false === strpos( $wp_version, $next_versions['release'] ) ) {
-						// $url = add_query_arg( 'version', $next_versions['point'], $url );
-					}
-				}
 				break;
 		}
 
