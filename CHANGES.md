@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.0.7 / 2020-11-24
 * tweak to `channel_switching_modification()`
 
 #### 3.0.6 / 2020-11-21
