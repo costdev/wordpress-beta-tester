@@ -1,5 +1,7 @@
 [unreleased]
 
+* fix some PHP errors when using older versions of WP, for testing updates directly from these older versions like when using Core Rollback plugin
+
 #### 3.0.7 / 2020-11-24
 * tweak to `channel_switching_modification()`
 
