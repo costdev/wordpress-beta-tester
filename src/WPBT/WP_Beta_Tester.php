@@ -71,8 +71,11 @@ class WP_Beta_Tester {
 		);
 		add_filter( 'pre_http_request', array( $this, 'filter_http_request' ), 10, 3 );
 
-		// set priority to 11 so that we fire after the function core hooks into this filter.
-		add_filter( 'update_footer', array( $this, 'update_footer' ), 11 );
+		// Fixed in https://core.trac.wordpress.org/changeset/49708.
+		if ( version_compare( get_bloginfo( 'version' ), '5.6-RC1-49708', '<=' ) ) {
+			// set priority to 11 so that we fire after the function core hooks into this filter.
+			add_filter( 'update_footer', array( $this, 'update_footer' ), 11 );
+		}
 
 		// Add dashboard widget.
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget' ) );
