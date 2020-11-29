@@ -422,6 +422,7 @@ class WP_Beta_Tester {
 		// a "minimal" response is one with the `response`, `current` and `locale` properties.
 		$update->response = 'development';
 		$update->current  = get_bloginfo( 'version' );
+		$update->version  = $update->current;
 		$update->locale   = get_locale();
 
 		$from_api->updates = array(
