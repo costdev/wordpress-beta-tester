@@ -262,7 +262,7 @@ class WP_Beta_Tester {
 	 */
 	public function add_dashboard_widget() {
 		$wp_version = get_bloginfo( 'version' );
-		$beta_rc    = 1 === preg_match( '/alpha|beta|RC/', $wp_version );
+		$beta_rc    = preg_match( '/alpha|beta|RC/', $wp_version );
 
 		if ( $beta_rc ) {
 			wp_add_dashboard_widget( 'beta_tester_dashboard_widget', __( 'WordPress Beta Testing', 'wordpress-beta-tester' ), array( $this, 'beta_tester_dashboard' ) );
@@ -340,8 +340,8 @@ class WP_Beta_Tester {
 	 */
 	private function add_dev_notes_field_guide_links( $milestone ) {
 		$wp_version       = get_bloginfo( 'version' );
-		$beta_rc          = 1 === preg_match( '/beta|RC/', $wp_version );
-		$rc               = 1 === preg_match( '/RC/', $wp_version );
+		$beta_rc          = preg_match( '/beta|RC/', $wp_version );
+		$rc               = preg_match( '/RC/', $wp_version );
 		$milestone_dash   = str_replace( '.', '-', $milestone );
 		$dev_note_link    = '';
 		$field_guide_link = '';
