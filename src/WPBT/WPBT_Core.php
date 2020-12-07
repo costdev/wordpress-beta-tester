@@ -154,7 +154,7 @@ class WPBT_Core {
 			echo '</div>';
 		}
 
-		$preferred->version = $this->get_next_version( $preferred->version );
+		$version = $this->get_next_version( $preferred->version );
 
 		echo '<div><p>';
 		printf(
@@ -176,7 +176,7 @@ class WPBT_Core {
 		printf(
 			/* translators: %s: update version */
 			wp_kses_post( __( 'Currently your site is set to update to %s.', 'wordpress-beta-tester' ) ),
-			'<strong>' . esc_attr( $preferred->version ) . '</strong>'
+			'<strong>' . esc_attr( $version ) . '</strong>'
 		);
 		echo '</p></div>';
 	}
