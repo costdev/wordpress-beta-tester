@@ -213,27 +213,27 @@ class WP_Beta_Tester {
 	/**
 	 * Get current WP release version.
 	 *
-	 * @since 3.0.0
+	 * @since 3.1.0
 	 * @return string $wp_version
 	 */
 	public function get_current_wp_release() {
-		$wp_version = get_bloginfo( 'version' );
-		$preferred  = $this->get_preferred_from_update_core();
-		$current    = get_site_transient( 'update_core' );
+		$response = get_site_transient( 'beta_tester_current_wp_release' );
 
-		// If we're getting no updates back from get_preferred_from_update_core(),
-		// let an HTTP request go through unmangled.
-		if ( ! isset( $preferred->current ) ) {
-			return $wp_version;
-		}
+		if ( ! $response ) {
+			$response = wp_remote_get( 'https://api.wordpress.org/core/stable-check/1.0/' );
+			$response = wp_remote_retrieve_body( $response );
 
-		foreach ( $current->updates as $update ) {
-			if ( 'latest' === $update->response ) {
-				$wp_version = $update->version;
+			if ( is_wp_error( $response ) ) {
+				return null;
 			}
+
+			$response = (array) json_decode( $response );
+			$response = array_keys( $response, 'latest', true );
+			$response = array_pop( $response );
+			set_site_transient( 'beta_tester_current_wp_release', $response, DAY_IN_SECONDS );
 		}
 
-		return $wp_version;
+		return $response;
 	}
 
 	/**
