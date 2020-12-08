@@ -217,7 +217,7 @@ class WP_Beta_Tester {
 	 * @return string $wp_version
 	 */
 	public function get_current_wp_release() {
-		$response = get_site_transient( 'beta_tester_current_wp_release' );
+		$response = get_site_transient( 'current_wp_release' );
 
 		if ( ! $response ) {
 			$response = wp_remote_get( 'https://api.wordpress.org/core/stable-check/1.0/' );
@@ -230,7 +230,7 @@ class WP_Beta_Tester {
 			$response = (array) json_decode( $response );
 			$response = array_keys( $response, 'latest', true );
 			$response = array_pop( $response );
-			set_site_transient( 'beta_tester_current_wp_release', $response, DAY_IN_SECONDS );
+			set_site_transient( 'current_wp_release', $response, DAY_IN_SECONDS );
 		}
 
 		return $response;
