@@ -1,5 +1,6 @@
 [unreleased]
 * re-write `WP_Beta_Tester::get_current_wp_release()` to check https://api.wordpress.org/core/stable-check/1.0/
+* add footer when on current release and not on `Nightlies`
 
 #### 3.0.9 / 2020-12-01
 * add conditional for filter to fix `core_update_footer()`, fixed in [r49708](https://core.trac.wordpress.org/changeset/49708)
