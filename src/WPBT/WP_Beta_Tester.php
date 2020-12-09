@@ -163,19 +163,23 @@ class WP_Beta_Tester {
 	 * @return string $url
 	 */
 	private function channel_switching_modification( $url ) {
-		$next_versions = ( new WPBT_Core( $this, static::$options ) )->calculate_next_versions();
-		$wp_version    = get_bloginfo( 'version' );
-		switch ( self::$options['channel'] ) {
-			case 'branch-development':
-				$url = add_query_arg( 'version', $next_versions['point'] . '-alpha', $url );
-				break;
-			case 'development':
-				if ( false !== strpos( $wp_version, $next_versions['point'] )
+		$next_versions   = ( new WPBT_Core( $this, static::$options ) )->calculate_next_versions();
+		$wp_version      = get_bloginfo( 'version' );
+		$current_release = $this->get_current_wp_release();
+
+		if ( version_compare( $wp_version, $current_release, '>=' ) ) {
+			switch ( self::$options['channel'] ) {
+				case 'branch-development':
+					$url = add_query_arg( 'version', $next_versions['point'] . '-alpha', $url );
+					break;
+				case 'development':
+					if ( false !== strpos( $wp_version, $next_versions['point'] )
 					|| version_compare( $wp_version, $next_versions['point'], '<' )
-				) {
-					$url = add_query_arg( 'version', $next_versions['release'] . '-alpha', $url );
-				}
-				break;
+					) {
+						$url = add_query_arg( 'version', $next_versions['release'] . '-alpha', $url );
+					}
+					break;
+			}
 		}
 
 		return $url;
