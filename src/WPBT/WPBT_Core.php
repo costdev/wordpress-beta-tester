@@ -346,13 +346,15 @@ class WPBT_Core {
 	public function calculate_next_versions() {
 		$wp_version             = get_bloginfo( 'version' );
 		$exploded_version       = explode( '-', $wp_version );
-		$next_release           = array_map( 'intval', explode( '.', $exploded_version[0] ) );
 		$current_release        = $this->wp_beta_tester->get_current_wp_release();
+		$next_release           = array_map( 'intval', explode( '.', $current_release ) );
 		$is_development_version = preg_match( '/alpha|beta|RC/', $wp_version );
 
 		// User on a current release.
 		if ( ! $is_development_version ) {
-			$exploded_version[0] = $current_release;
+			$next_release[1]     = $next_release[1] + 1;
+			$next_release        = implode( '.', $next_release );
+			$exploded_version[0] = $next_release;
 			$exploded_version[1] = null;
 		}
 
