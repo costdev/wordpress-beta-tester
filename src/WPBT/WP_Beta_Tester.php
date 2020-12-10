@@ -73,7 +73,7 @@ class WP_Beta_Tester {
 
 		// Fixed in https://core.trac.wordpress.org/changeset/49708.
 		if ( version_compare( get_bloginfo( 'version' ), '5.6-RC1-49708', '<=' )
-			|| ! preg_match( '/alpha|beta|RC/', get_bloginfo( 'version' ) )
+			&& preg_match( '/alpha|beta|RC/', get_bloginfo( 'version' ) )
 		) {
 			// set priority to 11 so that we fire after the function core hooks into this filter.
 			add_filter( 'update_footer', array( $this, 'update_footer' ), 11 );
