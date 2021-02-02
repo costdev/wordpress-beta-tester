@@ -178,9 +178,10 @@ class WP_Beta_Tester {
 		$next_versions   = ( new WPBT_Core( $this, static::$options ) )->calculate_next_versions();
 		$wp_version      = get_bloginfo( 'version' );
 		$current_release = $this->get_current_wp_release();
+		$channel         = self::$core_update_channel_constant ? self::$core_update_channel_constant : self::$options['channel'];
 
 		if ( version_compare( $wp_version, $current_release, '>=' ) ) {
-			switch ( self::$options['channel'] ) {
+			switch ( $channel ) {
 				case 'branch-development':
 					$url = add_query_arg( 'version', $next_versions['point'] . '-alpha', $url );
 					break;
