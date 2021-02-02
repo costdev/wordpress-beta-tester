@@ -1,5 +1,6 @@
 [unreleased]
 * update for working correctly if new `WP_AUTO_UPDATE_CORE` constant is used.
+* update `WP_Beta_Tester::channel_switching_modification()` to update past current release if appropriate
 
 #### 3.0.10 / 2021-01-11
 * re-write `WP_Beta_Tester::get_current_wp_release()` to check https://api.wordpress.org/core/stable-check/1.0/
