@@ -391,8 +391,9 @@ class WPBT_Core {
 		$current_exploded = array_map( 'intval', explode( '.', $exploded_version[0] ) );
 		if ( 'development' === self::$options['channel'] && isset( $current_exploded[2] ) ) {
 			$current_exploded[1] = ++$current_exploded[1];
-			unset( $current_exploded[2], $exploded_version[1], $exploded_version[2] );
+			unset( $current_exploded[2] );
 			$exploded_version[0] = implode( '.', $current_exploded );
+			$exploded_version[1] = 'alpha';
 		}
 
 		preg_match( '/beta(\d+)/', $exploded_version[1], $current_beta );
