@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.1.0 / 2021-02-08
 * update for working correctly if new `WP_AUTO_UPDATE_CORE` constant is used.
 * update `WP_Beta_Tester::channel_switching_modification()` to update past current release if appropriate
 * tweak next versions when coming from point release to bleeding edge
