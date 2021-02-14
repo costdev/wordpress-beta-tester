@@ -93,7 +93,8 @@ class WPBT_Bootstrap {
 	 */
 	private function deactivate_die_wordpress_develop() {
 		$wp_version    = get_bloginfo( 'version' );
-		$version_regex = '@(\d+\.\d+(\.\d+)?)-(alpha|beta|RC)(\d+)?-(\d+-src|\d{8}\.\d{6})@';
+		$version_regex = '/-\w+-src-?/';
+		// $version_regex = '@(\d+\.\d+(\.\d+)?)-(alpha|beta|RC)(\d+)?-(\d+-src|\d{8}\.\d{6})@';
 		$is_wp_develop = preg_match( $version_regex, $wp_version );
 
 		if ( $is_wp_develop ) {
