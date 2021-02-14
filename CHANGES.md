@@ -1,5 +1,4 @@
 [unreleased]
-* simplified regex to capture `wordpress-develop` installation via version number
 
 #### 3.1.0 / 2021-02-08
 * update for working correctly if new `WP_AUTO_UPDATE_CORE` constant is used.
