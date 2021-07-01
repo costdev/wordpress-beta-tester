@@ -1,5 +1,6 @@
 [unreleased]
 * add @10up GitHub Actions WordPress SVN integration
+* update Codex links for HelpHub links @andrasjb
 
 #### 3.1.0 / 2021-02-08
 * update for working correctly if new `WP_AUTO_UPDATE_CORE` constant is used.
