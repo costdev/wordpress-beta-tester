@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.1.1 / 2021-07-11
 * add @10up GitHub Actions WordPress SVN integration
 * update Codex links for HelpHub links @audrasjb
 
