@@ -1,4 +1,5 @@
 [unreleased]
+* only use `esc_attr_e` for translating strings
 
 #### 3.1.1 / 2021-07-11
 * add @10up GitHub Actions WordPress SVN integration
