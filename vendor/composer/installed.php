@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ebb22c2a2257a48b1e96c8070f731b4f1e92c6c6',
+        'reference' => '253c64b69f0b3d25e52bfbf8fb8679f9fc05f48b',
         'name' => 'afragen/wordpress-beta-tester',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ebb22c2a2257a48b1e96c8070f731b4f1e92c6c6',
+            'reference' => '253c64b69f0b3d25e52bfbf8fb8679f9fc05f48b',
             'dev_requirement' => false,
         ),
         'wp-cli/wp-config-transformer' => array(

@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.1.2 / 2021-09-04
 * only use `esc_attr_e` for translating strings
 
 #### 3.1.1 / 2021-07-11
