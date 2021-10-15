@@ -190,7 +190,7 @@ class WPBT_Settings {
 		if ( ! wp_verify_nonce( static::$nonce, 'wp-beta-tester' ) ) {
 			return;
 		}
-		$current_tab = isset( $_GET['tab'] ) ? sanitize_file_name( wp_unslash( $_GET['tab'] ) ) : 'wp_beta_tester_core';
+		$current_tab = isset( $_GET['tab'] ) ? sanitize_title_with_dashes( wp_unslash( $_GET['tab'] ) ) : 'wp_beta_tester_core';
 		echo '<nav class="nav-tab-wrapper" aria-label="Secondary menu">';
 		foreach ( $this->settings_tabs() as $key => $name ) {
 			$active = ( $current_tab === $key ) ? 'nav-tab-active' : '';
@@ -243,7 +243,7 @@ class WPBT_Settings {
 		}
 		$this->saved_settings_notice();
 		$action = is_multisite() ? 'edit.php?action=wp-beta-tester' : 'options.php';
-		$tab    = isset( $_GET['tab'] ) ? sanitize_file_name( wp_unslash( $_GET['tab'] ) ) : 'wp_beta_tester_core';
+		$tab    = isset( $_GET['tab'] ) ? sanitize_title_with_dashes( wp_unslash( $_GET['tab'] ) ) : 'wp_beta_tester_core';
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Beta Testing WordPress', 'wordpress-beta-tester' ); ?></h1>
