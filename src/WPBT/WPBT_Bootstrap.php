@@ -15,14 +15,14 @@ class WPBT_Bootstrap {
 	/**
 	 * Holds main plugin file.
 	 *
-	 * @var $file
+	 * @var string
 	 */
 	protected $file;
 
 	/**
 	 * Holds plugin options.
 	 *
-	 * @var $options
+	 * @var array
 	 */
 	protected static $options;
 

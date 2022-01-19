@@ -15,7 +15,7 @@ class WPBT_Extras {
 	/**
 	 * Placeholder for saved options.
 	 *
-	 * @var $options
+	 * @var array
 	 */
 	protected static $options;
 

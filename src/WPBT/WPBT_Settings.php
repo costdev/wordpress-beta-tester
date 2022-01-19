@@ -15,14 +15,14 @@ class WPBT_Settings {
 	/**
 	 * Placeholder for main class.
 	 *
-	 * @var WP_Beta_Tester $wp_beta_tester
+	 * @var WP_Beta_Tester
 	 */
 	protected $wp_beta_tester;
 
 	/**
 	 * Placeholder for saved options.
 	 *
-	 * @var $options
+	 * @var array
 	 */
 	protected static $options;
 
