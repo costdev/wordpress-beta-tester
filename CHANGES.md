@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.1.5 / 2022-01-28
 * use `sanitize_title_with_dashes()` as `sanitize_file_name()` maybe have attached filter that changes output
 * fix variable docblocks
 * update nonce checks
