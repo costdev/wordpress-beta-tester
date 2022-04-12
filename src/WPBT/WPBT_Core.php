@@ -387,7 +387,11 @@ class WPBT_Core {
 		// User on a current release.
 		if ( ! $is_development_version ) {
 			unset( $next_release[2] );
-			$next_release[1]     = $next_release[1] + 1;
+			$next_release[1] = $next_release[1] + 1;
+			if ( 10 === $next_release[1] ) {
+				$next_release[0] = $next_release[0] + 1;
+				$next_release[1] = 0;
+			}
 			$next_release        = implode( '.', $next_release );
 			$exploded_version[0] = $next_release;
 			$exploded_version[1] = null;
