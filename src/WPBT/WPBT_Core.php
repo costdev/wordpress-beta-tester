@@ -281,22 +281,20 @@ class WPBT_Core {
 				<td><?php esc_html_e( 'Latest daily updates.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
 
-			<?php if ( 'development' === self::$options['channel'] ) : ?>
-			<tr>
+			<tr class="bleeding-edge-kids">
 				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="beta" class="tog" <?php checked( 'beta', self::$options['stream-option'] ); ?> />
 				<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
 				</label></th>
 				<td><?php esc_html_e( 'This is for the Beta/RC releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
-			<tr>
+			<tr class="bleeding-edge-kids">
 				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-rc" type="radio" value="rc" class="tog" <?php checked( 'rc', self::$options['stream-option'] ); ?> />
 				<?php esc_html_e( 'Release Candidates Only', 'wordpress-beta-tester' ); ?>
 				</label></th>
 				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
-			<?php endif; ?>
 
-			<?php if ( false && 'branch-development' === self::$options['channel'] ) : ?>
+			<?php  if ( false && 'branch-development' === self::$options['channel'] ) : ?>
 			<tr>
 				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="branch-beta" class="tog" <?php checked( 'branch-beta', self::$options['stream-option'] ); ?> />
 				<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
@@ -309,7 +307,7 @@ class WPBT_Core {
 				</label></th>
 				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
-			<?php endif; ?>
+			<?php  endif; ?>
 			</fieldset>
 			<?php
 		}
@@ -333,7 +331,24 @@ class WPBT_Core {
 			</form>
 			<?php endif; ?>
 		</div>
-		<script>jQuery('tr.wpbt-settings-title th').attr('colspan',2);</script>
+		<script>
+			jQuery( document ).ready( function( $ ){
+				$( 'tr.wpbt-settings-title th' ).attr( 'colspan', 2 );
+				let $bleedingEdgeKids = $( '.bleeding-edge-kids' );
+
+				<?php  if ( 'development' !== self::$options['channel'] ) : // Time to do our basic JS magic :). ?>
+					$bleedingEdgeKids.hide();
+				<?php endif; ?>
+
+				$( document ).on( 'change', 'input[name="wp-beta-tester"]', function() {
+					if ( $( '#update-stream-bleeding-nightlies' ).is( ":checked" ) ) {
+						$bleedingEdgeKids.show();
+					} else {
+						$bleedingEdgeKids.hide();
+					}
+				});
+			});
+		</script>
 		<?php
 	}
 
