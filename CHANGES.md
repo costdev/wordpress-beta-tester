@@ -1,4 +1,5 @@
 [unreleased]
+* added auto display relative fields immediately bleeding edge option is selected, thanks @Preciousomonze
 
 #### 3.2.4 / 2022-11-07
 * return empty array for 8.1 compatibility
