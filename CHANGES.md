@@ -1,4 +1,5 @@
 [unreleased]
+* added auto display relative fields immediately bleeding edge option is selected, thanks @Preciousomonze
 
 #### 3.2.2 / 2022-06-23
 * correctly use `sanitize_url()` and `esc_url()`
