@@ -203,6 +203,14 @@ class WPBT_Core {
 	 */
 	public function channel_radio_group() {
 		$next_versions = $this->calculate_next_versions();
+		?>
+		<fieldset>
+			<tr>
+				<th><label><?php esc_html_e( __( 'Save after switching', 'wordpress-beta-tester' ) ); ?></label></th>
+				<td></td>
+			</tr>
+		</fieldset>
+		<?php
 		if ( self::$core_update_channel_constant ) {
 			?>
 			<fieldset>
@@ -294,7 +302,7 @@ class WPBT_Core {
 				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
 
-			<?php  if ( false && 'branch-development' === self::$options['channel'] ) : ?>
+			<?php if ( false && 'branch-development' === self::$options['channel'] ) : ?>
 			<tr>
 				<th><label><input name="wp-beta-tester-beta-rc" id="update-stream-beta" type="radio" value="branch-beta" class="tog" <?php checked( 'branch-beta', self::$options['stream-option'] ); ?> />
 				<?php esc_html_e( 'Beta/RC Only', 'wordpress-beta-tester' ); ?>
@@ -307,7 +315,7 @@ class WPBT_Core {
 				</label></th>
 				<td><?php esc_html_e( 'This is for the Release Candidate releases only of the selected channel.', 'wordpress-beta-tester' ); ?></td>
 			</tr>
-			<?php  endif; ?>
+			<?php endif; ?>
 			</fieldset>
 			<?php
 		}
@@ -336,7 +344,7 @@ class WPBT_Core {
 				$( 'tr.wpbt-settings-title th' ).attr( 'colspan', 2 );
 				let $bleedingEdgeStream = $( '.bleeding-edge-stream' );
 
-				<?php  if ( 'development' !== self::$options['channel'] ) : // Time to do our basic JS magic :). ?>
+				<?php if ( 'development' !== self::$options['channel'] ) : // Time to do our basic JS magic :). ?>
 					$bleedingEdgeStream.hide();
 				<?php endif; ?>
 
