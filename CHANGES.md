@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.2.9 / 2023-02-27
 * mitigate some issues/possible issues with PHP 8.1/8.2
 
 #### 3.2.8 / 2023-02-07
