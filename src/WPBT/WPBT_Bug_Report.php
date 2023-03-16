@@ -131,7 +131,7 @@ class WPBT_Bug_Report {
 		$this->set_server();
 		$this->set_browser();
 		$this->set_theme();
-		$this->set_muplugins();
+		$this->set_mu_plugins();
 		$this->set_plugins();
 	}
 
@@ -300,7 +300,7 @@ class WPBT_Bug_Report {
 	 *
 	 * @return void
 	 */
-	private function set_muplugins() {
+	private function set_mu_plugins() {
 		self::$muplugins = __( 'None activated', 'wordpress-beta-tester' );
 		$plugin_files    = get_mu_plugins();
 
