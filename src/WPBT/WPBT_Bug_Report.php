@@ -421,7 +421,7 @@ class WPBT_Bug_Report {
 		$heading   = 'wiki' === $format ? '===' : '###';
 		$last_item = 'wiki' === $format ? 'x' : '2';
 		$report    = <<<EOD
-		$heading Bug Description
+		$heading Bug Report
 		Describe the bug.
 
 		$heading Environment
