@@ -101,7 +101,8 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), false, true );
+		$version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
+		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), $version, true );
 		wp_enqueue_script( 'wordpress-beta-tester-bug_report' );
 		wp_add_inline_script(
 			'wordpress-beta-tester-bug_report',
