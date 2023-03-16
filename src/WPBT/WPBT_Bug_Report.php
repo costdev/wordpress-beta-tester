@@ -256,7 +256,7 @@ class WPBT_Bug_Report {
 			return;
 		}
 
-		self::$theme = $theme->name;
+		self::$theme = $theme->name . ' ' . $theme->version;
 	}
 
 	/**
