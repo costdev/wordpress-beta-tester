@@ -309,7 +309,7 @@ class WPBT_Bug_Report {
 		}
 
 		foreach ( $plugin_files as $k => &$plugin ) {
-			$path    = WP_CONTENT_DIR . '/mu-plugins/' . $plugin;
+			$path    = WP_CONTENT_DIR . '/mu-plugins/' . $k;
 			$data    = get_plugin_data( $path );
 			$name    = ! empty( $data['Name'] ) ? $data['Name'] : $k;
 			$version = ! empty( $data['Version'] ) ? $data['Version'] : '';
