@@ -170,16 +170,16 @@ class WPBT_Settings {
 
 	/**
 	 * Defines the menu for the admin bar.
-	 * 
+	 *
 	 * @param WP_Admin_Bar $wpadminbar The WP_Admin_Bar object.
 	 * @return void
 	 */
 	public function admin_bar_menu( $wp_admin_bar ) {
 		/**
 		 * Action hook to add adminbar menu.
-		 * 
+		 *
 		 * @since 3.3.0
-		 * 
+		 *
 		 * @param WP_Admin_Bar $wpadminbar The WP_Admin_Bar object.
 		 */
 		do_action( 'wp_beta_tester_add_admin_bar_menu', $wp_admin_bar );

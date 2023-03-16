@@ -406,7 +406,7 @@ class WPBT_Bug_Report {
 	public function get_bug_report_template( $format ) {
 		global $wp_version;
 
-		$environment  = array(
+		$environment = array(
 			'- OS: ' . self::$os,
 			'- Server: ' . self::$server,
 			'- PHP: ' . phpversion(),
@@ -417,7 +417,7 @@ class WPBT_Bug_Report {
 		);
 
 		$environment = implode( "\n", $environment );
-		
+
 		$heading   = 'wiki' === $format ? '===' : '###';
 		$last_item = 'wiki' === $format ? 'x' : '2';
 		$report    = <<<EOD
