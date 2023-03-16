@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.3.0 / 2023-03-16
 * added `Report a Bug` feature, thanks @costdev, @ironprogrammer
 
 #### 3.2.9 / 2023-02-27
