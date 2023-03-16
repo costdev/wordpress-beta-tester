@@ -407,13 +407,13 @@ class WPBT_Bug_Report {
 		global $wp_version;
 
 		$environment  = array(
-			'* OS: ' . self::$os,
-			'* Server: ' . self::$server,
-			'* PHP: ' . phpversion(),
-			'* WordPress: ' . $wp_version,
-			'* Browser: ' . self::$browser,
-			'* Theme: ' . self::$theme,
-			'* Plugins: ' . self::$plugins,
+			'- OS: ' . self::$os,
+			'- Server: ' . self::$server,
+			'- PHP: ' . phpversion(),
+			'- WordPress: ' . $wp_version,
+			'- Browser: ' . self::$browser,
+			'- Theme: ' . self::$theme,
+			'- Plugins: ' . self::$plugins,
 		);
 
 		$environment = implode( "\n", $environment );
