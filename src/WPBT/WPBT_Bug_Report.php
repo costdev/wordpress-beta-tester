@@ -327,7 +327,7 @@ class WPBT_Bug_Report {
 			<form method="post" action="<?php echo esc_attr( $action ); ?>">
 				<?php settings_fields( 'wp_beta_tester_bug_report' ); ?>
 
-				<h2><?php esc_html_e( 'Report a bug', 'wordpress-beta-tester' ); ?></h2>
+				<h2><?php esc_html_e( 'Report a Bug', 'wordpress-beta-tester' ); ?></h2>
 				<?php $this->print_tab_introduction(); ?>
 
 				<div id="wordpress-beta-tester-bug-reports" style="display: flex; flex-wrap: wrap; gap: 1rem;">
