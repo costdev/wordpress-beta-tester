@@ -300,7 +300,7 @@ class WPBT_Bug_Report {
 		$wp_admin_bar->add_menu(
 			array(
 				'id'    => 'wp-beta-tester-report-a-bug',
-				'title' => __( 'Report a bug', 'wordpress-beta-tester' ),
+				'title' => __( 'Report a Bug', 'wordpress-beta-tester' ),
 				'href'  => add_query_arg(
 					array(
 						'page' => 'wp-beta-tester',
