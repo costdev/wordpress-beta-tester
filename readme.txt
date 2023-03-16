@@ -1,7 +1,7 @@
 # WordPress Beta Tester
 
 Tags: beta, advanced, testing
-Contributors: westi, mlteal, afragen, pbiron
+Contributors: westi, mlteal, afragen, pbiron, costdev
 License: GPLv2
 License URI: https://www.opensource.org/licenses/GPL-2.0
 Requires at least: 3.1
@@ -37,6 +37,12 @@ Unchecking the feature will remove the constant.
 This plugin resets the constants in `wp-config.php` on plugin activation and removes them on plugin deactivation. Use the filter `wp_beta_tester_config_path` to return a non-standard `wp-config.php` file path.
 
 If no settings are present there is no testing to be done that requires this feature.
+
+### Report a Bug
+
+This feature will hopefully promote the testing and reporting of issues to the appropriate location.
+
+There is a **Report a Bug** admin menu item to directly take the user to the **Report a Bug** tab in WordPress Beta Tester.
 
 PRs are welcome on [GitHub](https://github.com/afragen/wordpress-beta-tester).
 
@@ -282,3 +288,4 @@ PRs are welcome on [GitHub](https://github.com/afragen/wordpress-beta-tester).
 1. This shows the main administration page for the plugin
 2. This shows the Extra Settings page for the plugin
 3. This shows the Dashboard callout
+4. This shows the 'Report a Bug' tab
