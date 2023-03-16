@@ -8,9 +8,6 @@
  * @copyright 2009-2016 Peter Westwood (email : peter.westwood@ftwr.co.uk)
  */
 
-
- require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
 /**
  * WPBT_Bug_Report
  */
@@ -79,6 +76,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function __construct( WP_Beta_Tester $wp_beta_tester, $options ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$this->wp_beta_tester = $wp_beta_tester;
 		self::$options        = $options;
 
