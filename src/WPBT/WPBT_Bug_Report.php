@@ -358,7 +358,7 @@ class WPBT_Bug_Report {
 	 * @return array
 	 */
 	public function add_settings_tab( $tabs ) {
-		return array_merge( $tabs, array( 'wp_beta_tester_bug_report' => esc_html__( 'Report a bug', 'wordpress-beta-tester' ) ) );
+		return array_merge( $tabs, array( 'wp_beta_tester_bug_report' => esc_html__( 'Report a Bug', 'wordpress-beta-tester' ) ) );
 	}
 
 	/**
