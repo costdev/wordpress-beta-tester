@@ -286,6 +286,7 @@ class WPBT_Bug_Report {
 			$plugin = "&nbsp;&nbsp;* $name $version";
 		}
 		unset( $plugin );
+		natcasesort( $plugin_files );
 
 		self::$plugins = "\n" . implode( "\n", $plugin_files );
 	}

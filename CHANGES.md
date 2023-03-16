@@ -1,5 +1,6 @@
 [unreleased]
 * update readme
+* sort listed plugins in 'Report a Bug'
 
 #### 3.3.0 / 2023-03-16
 * added `Report a Bug` feature, thanks @costdev, @ironprogrammer
