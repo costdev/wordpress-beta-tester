@@ -65,6 +65,13 @@ class WPBT_Bug_Report {
 	protected static $plugins;
 
 	/**
+	 * Holds a list of mu-plugins.
+	 *
+	 * @var string
+	 */
+	protected static $muplugins;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param  WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
@@ -126,6 +133,7 @@ class WPBT_Bug_Report {
 		$this->set_server();
 		$this->set_browser();
 		$this->set_theme();
+		$this->set_muplugins();
 		$this->set_plugins();
 	}
 
@@ -292,6 +300,38 @@ class WPBT_Bug_Report {
 	}
 
 	/**
+	 * Set the list of mu-plugins.
+	 *
+	 * @return void
+	 */
+	private function set_muplugins() {
+		self::$muplugins = __( 'None activated', 'wordpress-beta-tester' );
+		$plugin_files    = get_mu_plugins();
+
+		if ( ! $plugin_files || 1 === count( $plugin_files ) ) {
+			return;
+		}
+
+		foreach ( $plugin_files as $k => &$plugin ) {
+			$path    = WP_CONTENT_DIR . '/mu-plugins/' . $plugin;
+			$data    = get_plugin_data( $path );
+			$name    = ! empty( $data['Name'] ) ? $data['Name'] : $k;
+			$version = ! empty( $data['Version'] ) ? $data['Version'] : '';
+
+			// Exclude this plugin.
+			if ( 'WordPress Beta Tester' === $name ) {
+				unset( $plugin_files[ $k ] );
+			}
+
+			$plugin = "&nbsp;&nbsp;* $name $version";
+		}
+		unset( $plugin );
+		natcasesort( $plugin_files );
+
+		self::$muplugins = "\n" . implode( "\n", $plugin_files );
+	}
+
+	/**
 	 * Add admin bar menu.
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar object.
@@ -414,6 +454,7 @@ class WPBT_Bug_Report {
 			'- WordPress: ' . $wp_version,
 			'- Browser: ' . self::$browser,
 			'- Theme: ' . self::$theme,
+			'- MU-Plugins' . self::$muplugins,
 			'- Plugins: ' . self::$plugins,
 		);
 
