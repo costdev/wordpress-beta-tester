@@ -206,8 +206,6 @@ class WPBT_Bug_Report {
 
 		$server       = array_keys( $filtered );
 		self::$server = end( $server ) . ' (' . PHP_OS . ')';
-
-		return;
 	}
 
 	/**
@@ -218,7 +216,7 @@ class WPBT_Bug_Report {
 	private function set_browser() {
 		global $is_lynx, $is_gecko, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_IE, $is_edge;
 
-		$agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
+		$agent = isset( $_SERVER['HTTP_USER_AGENT'] ) && sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
 
 		self::$browser = __( 'Could not determine.', 'wordpress-beta-tester' );
 		$browsers      = array(
@@ -425,10 +423,10 @@ class WPBT_Bug_Report {
 		<div style="width: min( 100vw, 520px - .5rem); padding-bottom: 2rem;">
 			<h2><?php esc_html_e( $title ); ?></h2>
 			<div style="display: flex; align-items: center; gap: 1rem;">
-				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php _e( 'File a report', 'wordpress-beta-tester' ); ?></a>
+				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php esc_html_e( 'File a report', 'wordpress-beta-tester' ); ?></a>
 				<div style="display: flex; align-items: center; gap: .25rem;">
-					<button type="button" class="button button-small" data-clipboard-text="<?php echo $test_report; ?>"><?php _e( 'Copy to clipboard', 'wordpress-beta-tester' ); ?></button>
-					<span class="success hidden" style="color: #008a20;" aria-hidden="true"><?php _e( 'Copied!', 'wordpress-beta-tester' ); ?></span>
+					<button type="button" class="button button-small" data-clipboard-text="<?php esc_attr_e( $test_report ); ?>"><?php esc_html_e( 'Copy to clipboard', 'wordpress-beta-tester' ); ?></button>
+					<span class="success hidden" style="color: #008a20;" aria-hidden="true"><?php esc_html_e( 'Copied!', 'wordpress-beta-tester' ); ?></span>
 				</div>
 			</div>
 			<?php echo wp_kses_post( '<div class="card" style="margin-top: 1rem;">' . nl2br( $this->get_bug_report_template( $format ) ) . '</div>' ); ?>
