@@ -245,7 +245,7 @@ class WPBT_Bug_Report {
 		self::$browser = end( $browser );
 
 		// Try to get the browser version.
-		preg_match( '/' . self::$browser . '\/([0-9\.\-]+)/', $agent, $version );
+		preg_match( '/' . ( 'Edge' === self::$browser ? 'Edg' : self::$browser ) . '\/([0-9\.\-]+)/', $agent, $version );
 
 		self::$browser .= $version ? ' ' . $version[1] : '';
 		self::$browser .= wp_is_mobile() ? ' (' . __( 'Mobile', 'wordpress-beta-tester' ) . ')' : '';
