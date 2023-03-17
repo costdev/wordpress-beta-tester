@@ -217,9 +217,13 @@ class WPBT_Bug_Report {
 	private function set_browser() {
 		global $is_lynx, $is_gecko, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_IE, $is_edge;
 
-		$agent = isset( $_SERVER['HTTP_USER_AGENT'] ) && sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
-
 		self::$browser = __( 'Could not determine.', 'wordpress-beta-tester' );
+
+		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return;
+		}
+
+		$agent         = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
 		$browsers      = array(
 			'Lynx'              => $is_lynx,
 			'Gecko'             => $is_gecko,
