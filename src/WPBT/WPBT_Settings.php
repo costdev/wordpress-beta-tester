@@ -175,11 +175,9 @@ class WPBT_Settings {
 	 * @return void
 	 */
 	public function admin_bar_menu( WP_Admin_Bar $wp_admin_bar ) {
-		$capability         = is_multisite() ? 'manage_network_options' : 'manage_options';
-		$display_admin_menu = current_user_can( $capability );
-
 		// Exit if user doesn't have correct capabilities.
-		if ( ! $display_admin_menu ) {
+		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
+		if ( ! current_user_can( $capability ) ) {
 			return;
 		}
 
