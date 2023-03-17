@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.3.1 / 2023-03-17 ☘️
 * update readme
 * sort listed plugins in 'Report a Bug'
 * add mu-plugins in 'Report a Bug'
