@@ -283,11 +283,6 @@ class WPBT_Bug_Report {
 			$name    = $data['Name'];
 			$version = $data['Version'];
 
-			// Exclude this plugin.
-			if ( 'WordPress Beta Tester' === $name ) {
-				unset( $plugin_files[ $k ] );
-			}
-
 			$plugin = "&nbsp;&nbsp;* $name $version";
 		}
 		unset( $plugin );
@@ -314,11 +309,6 @@ class WPBT_Bug_Report {
 			$data    = get_plugin_data( $path );
 			$name    = ! empty( $data['Name'] ) ? $data['Name'] : $k;
 			$version = ! empty( $data['Version'] ) ? $data['Version'] : '';
-
-			// Exclude this plugin.
-			if ( 'WordPress Beta Tester' === $name ) {
-				unset( $plugin_files[ $k ] );
-			}
 
 			$plugin = "&nbsp;&nbsp;* $name $version";
 		}
