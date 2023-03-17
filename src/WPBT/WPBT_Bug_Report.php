@@ -192,19 +192,20 @@ class WPBT_Bug_Report {
 	private function set_server() {
 		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
 
+		self::$server = __( 'Could not determine.', 'wordpress-beta-tester' );
+
 		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
 			return;
 		}
 
-		$software     = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
-		self::$server = __( 'Could not determine.', 'wordpress-beta-tester' );
-		$servers      = array(
+		$software = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
+		$servers  = array(
 			'Apache' => $is_apache,
 			'NGINX'  => $is_nginx,
 			'IIS'    => $is_IIS,
 			'IIS7'   => $is_iis7,
 		);
-		$filtered     = array_filter( $servers );
+		$filtered = array_filter( $servers );
 
 		if ( empty( $filtered ) ) {
 			return;
