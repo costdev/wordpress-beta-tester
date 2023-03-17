@@ -273,7 +273,7 @@ class WPBT_Bug_Report {
 		self::$plugins = __( 'None activated', 'wordpress-beta-tester' );
 		$plugin_files  = get_option( 'active_plugins' );
 
-		if ( ! $plugin_files || 1 === count( $plugin_files ) ) {
+		if ( ! $plugin_files ) {
 			return;
 		}
 
@@ -300,7 +300,7 @@ class WPBT_Bug_Report {
 		self::$muplugins = __( 'None activated', 'wordpress-beta-tester' );
 		$plugin_files    = get_mu_plugins();
 
-		if ( ! $plugin_files || 1 === count( $plugin_files ) ) {
+		if ( ! $plugin_files ) {
 			return;
 		}
 
