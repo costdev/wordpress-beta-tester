@@ -444,7 +444,7 @@ class WPBT_Bug_Report {
 			'- WordPress: ' . $wp_version,
 			'- Browser: ' . self::$browser,
 			'- Theme: ' . self::$theme,
-			'- MU-Plugins' . self::$muplugins,
+			'- MU-Plugins: ' . self::$muplugins,
 			'- Plugins: ' . self::$plugins,
 		);
 
