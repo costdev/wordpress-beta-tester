@@ -273,7 +273,7 @@ class WPBT_Bug_Report {
 
 		// Try to get the browser version.
 		if ( 'Safari' === self::$browser ) {
-			$regex = '/([0-9\.\-]+) Safari/';
+			$regex = '/Version\/([0-9\.\-]+)/';;
 		} elseif ( 'Edge' === self::$browser ) {
 			$regex = '/Edg\/([0-9\.\-]+)/';
 		} else {
