@@ -192,6 +192,11 @@ class WPBT_Bug_Report {
 	private function set_server() {
 		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
 
+		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
+			return;
+		}
+
+		$software     = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
 		self::$server = __( 'Could not determine.', 'wordpress-beta-tester' );
 		$servers      = array(
 			'Apache' => $is_apache,
@@ -207,6 +212,11 @@ class WPBT_Bug_Report {
 
 		$server       = array_keys( $filtered );
 		self::$server = end( $server ) . ' (' . PHP_OS . ')';
+
+		// Try to get the server version.
+		preg_match( '/\/([0-9\.\-]+)/', $software, $version );
+
+		self::$server .= $version ? ' ' . $version[1] : '';
 	}
 
 	/**
