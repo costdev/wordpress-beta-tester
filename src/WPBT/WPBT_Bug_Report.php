@@ -95,8 +95,6 @@ class WPBT_Bug_Report {
 		self::$options        = $options;
 		self::$unknown        = __( 'Could not determine', 'wordpress-beta-tester' );
 		self::$none_activated = __( 'None activated', 'wordpress-beta-tester' );
-
-		$this->set_environment_data();
 	}
 
 	/**
@@ -398,6 +396,7 @@ class WPBT_Bug_Report {
 		?>
 		<div>
 		<?php if ( 'wp_beta_tester_bug_report' === $tab ) : ?>
+			<?php $this->set_environment_data(); ?>
 			<form method="post" action="<?php echo esc_attr( $action ); ?>">
 				<?php settings_fields( 'wp_beta_tester_bug_report' ); ?>
 
