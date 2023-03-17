@@ -95,8 +95,6 @@ class WPBT_Bug_Report {
 		self::$options        = $options;
 		self::$unknown        = __( 'Could not determine', 'wordpress-beta-tester' );
 		self::$none_activated = __( 'None activated', 'wordpress-beta-tester' );
-
-		$this->set_environment_data();
 	}
 
 	/**
@@ -117,6 +115,10 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
+		if ( ! isset( $_GET['tab'] ) || 'wp_beta_tester_bug_report' !== $_GET['tab'] ) {
+			return;
+		}
+		
 		$version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
 		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), $version, true );
 		wp_enqueue_script( 'wordpress-beta-tester-bug_report' );
@@ -398,6 +400,7 @@ class WPBT_Bug_Report {
 		?>
 		<div>
 		<?php if ( 'wp_beta_tester_bug_report' === $tab ) : ?>
+			<?php $this->set_environment_data(); ?>
 			<form method="post" action="<?php echo esc_attr( $action ); ?>">
 				<?php settings_fields( 'wp_beta_tester_bug_report' ); ?>
 
