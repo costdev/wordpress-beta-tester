@@ -115,10 +115,11 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET['tab'] ) || 'wp_beta_tester_bug_report' !== $_GET['tab'] ) {
 			return;
 		}
-		
+
 		$version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
 		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), $version, true );
 		wp_enqueue_script( 'wordpress-beta-tester-bug_report' );
