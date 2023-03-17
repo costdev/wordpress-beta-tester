@@ -287,7 +287,9 @@ class WPBT_Bug_Report {
 		self::$plugins          = __( 'None activated', 'wordpress-beta-tester' );
 		$plugin_files           = get_option( 'active_plugins' );
 		$network_active_plugins = get_site_option( 'active_sitewide_plugins' );
-		$plugin_files           = array_unique( array_merge( $plugin_files, array_keys( $network_active_plugins ) ) );
+		if ( $network_active_plugins ) {
+			$plugin_files = array_unique( array_merge( $plugin_files, $network_active_plugins ) );
+		}
 
 		if ( ! $plugin_files ) {
 			return;
