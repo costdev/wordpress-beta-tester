@@ -272,7 +272,15 @@ class WPBT_Bug_Report {
 		self::$browser = end( $browser );
 
 		// Try to get the browser version.
-		preg_match( '/' . ( 'Edge' === self::$browser ? 'Edg' : self::$browser ) . '\/([0-9\.\-]+)/', $agent, $version );
+		if ( 'Safari' === self::$browser ) {
+			$regex = '/([0-9\.\-]+) Safari/';
+		} elseif ( 'Edge' === self::$browser ) {
+			$regex = '/Edg\/([0-9\.\-]+)/';
+		} else {
+			$regex = '/' . self::$browser . '\/([0-9\.\-]+)/';
+		}
+
+		preg_match( $regex, $agent, $version );
 
 		self::$browser .= $version ? ' ' . $version[1] : '';
 		self::$browser .= wp_is_mobile() ? ' (' . __( 'Mobile', 'wordpress-beta-tester' ) . ')' : '';
