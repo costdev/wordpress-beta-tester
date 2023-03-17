@@ -217,9 +217,13 @@ class WPBT_Bug_Report {
 	private function set_browser() {
 		global $is_lynx, $is_gecko, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_IE, $is_edge;
 
-		$agent = isset( $_SERVER['HTTP_USER_AGENT'] ) && sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
-
 		self::$browser = __( 'Could not determine.', 'wordpress-beta-tester' );
+
+		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return;
+		}
+
+		$agent         = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
 		$browsers      = array(
 			'Lynx'              => $is_lynx,
 			'Gecko'             => $is_gecko,
@@ -241,7 +245,7 @@ class WPBT_Bug_Report {
 		self::$browser = end( $browser );
 
 		// Try to get the browser version.
-		preg_match( '/' . self::$browser . '\/([0-9\.\-]+)/', $agent, $version );
+		preg_match( '/' . ( 'Edge' === self::$browser ? 'Edg' : self::$browser ) . '\/([0-9\.\-]+)/', $agent, $version );
 
 		self::$browser .= $version ? ' ' . $version[1] : '';
 		self::$browser .= wp_is_mobile() ? ' (' . __( 'Mobile', 'wordpress-beta-tester' ) . ')' : '';
