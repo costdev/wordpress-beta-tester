@@ -223,8 +223,8 @@ class WPBT_Bug_Report {
 			return;
 		}
 
-		$agent         = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
-		$browsers      = array(
+		$agent    = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
+		$browsers = array(
 			'Lynx'              => $is_lynx,
 			'Gecko'             => $is_gecko,
 			'Opera'             => $is_opera,
@@ -235,7 +235,7 @@ class WPBT_Bug_Report {
 			'Chrome'            => $is_chrome,
 			'Firefox'           => false !== stripos( $agent, 'Firefox' ),
 		);
-		$filtered      = array_filter( $browsers );
+		$filtered = array_filter( $browsers );
 
 		if ( empty( $filtered ) ) {
 			return;
