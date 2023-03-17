@@ -2,6 +2,7 @@
 * update readme
 * sort listed plugins in 'Report a Bug'
 * add mu-plugins in 'Report a Bug'
+* fix for multisite
 
 #### 3.3.0 / 2023-03-16
 * added `Report a Bug` feature, thanks @costdev, @ironprogrammer

@@ -334,7 +334,7 @@ class WPBT_Bug_Report {
 						'page' => 'wp-beta-tester',
 						'tab'  => 'wp_beta_tester_bug_report',
 					),
-					admin_url( 'tools.php' )
+					is_multisite() ? network_admin_url( 'settings.php' ) : admin_url( 'tools.php' )
 				),
 				'meta'  => array( 'title' => __( 'Discovered a bug? Report it now!', 'wordpress-beta-tester' ) ),
 			)
