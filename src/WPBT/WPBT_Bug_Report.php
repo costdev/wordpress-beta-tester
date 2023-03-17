@@ -325,6 +325,9 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function add_admin_bar_menu( $wp_admin_bar ) {
+		if ( is_multisite() && ! is_super_admin() ) {
+			return;
+		}
 		$wp_admin_bar->add_menu(
 			array(
 				'id'    => 'wp-beta-tester-report-a-bug',
