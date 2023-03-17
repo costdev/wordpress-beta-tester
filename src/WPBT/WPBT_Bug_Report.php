@@ -69,6 +69,20 @@ class WPBT_Bug_Report {
 	protected static $muplugins;
 
 	/**
+	 * Holds the string for unknown values.
+	 *
+	 * @var string
+	 */
+	protected static $unknown;
+
+	/**
+	 * Holds the string for no activated plugins.
+	 *
+	 * @var string
+	 */
+	protected static $none_activated;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param  WP_Beta_Tester $wp_beta_tester Instance of class WP_Beta_Tester.
@@ -79,6 +93,8 @@ class WPBT_Bug_Report {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$this->wp_beta_tester = $wp_beta_tester;
 		self::$options        = $options;
+		self::$unknown        = __( 'Could not determine', 'wordpress-beta-tester' );
+		self::$none_activated = __( 'None activated', 'wordpress-beta-tester' );
 
 		$this->set_environment_data();
 	}
@@ -142,7 +158,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_os() {
-		self::$os = __( 'Could not determine.', 'wordpress-beta-tester' );
+		self::$os = self::$unknown;
 
 		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
 			return;
@@ -192,19 +208,20 @@ class WPBT_Bug_Report {
 	private function set_server() {
 		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
 
+		self::$server = self::$unknown;
+
 		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
 			return;
 		}
 
-		$software     = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
-		self::$server = __( 'Could not determine.', 'wordpress-beta-tester' );
-		$servers      = array(
+		$software = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
+		$servers  = array(
 			'Apache' => $is_apache,
 			'NGINX'  => $is_nginx,
 			'IIS'    => $is_IIS,
 			'IIS7'   => $is_iis7,
 		);
-		$filtered     = array_filter( $servers );
+		$filtered = array_filter( $servers );
 
 		if ( empty( $filtered ) ) {
 			return;
@@ -227,7 +244,7 @@ class WPBT_Bug_Report {
 	private function set_browser() {
 		global $is_lynx, $is_gecko, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_IE, $is_edge;
 
-		self::$browser = __( 'Could not determine.', 'wordpress-beta-tester' );
+		self::$browser = self::$unknown;
 
 		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
 			return;
@@ -267,7 +284,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_theme() {
-		self::$theme = __( 'Could not determine.', 'wordpress-beta-tester' );
+		self::$theme = self::$unknown;
 
 		$theme = wp_get_theme();
 
@@ -284,7 +301,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_plugins() {
-		self::$plugins          = __( 'None activated', 'wordpress-beta-tester' );
+		self::$plugins          = self::$none_activated;
 		$plugin_files           = get_option( 'active_plugins' );
 		$network_active_plugins = get_site_option( 'active_sitewide_plugins' );
 		if ( $network_active_plugins ) {
@@ -315,7 +332,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_mu_plugins() {
-		self::$muplugins = __( 'None activated', 'wordpress-beta-tester' );
+		self::$muplugins = self::$none_activated;
 		$plugin_files    = get_mu_plugins();
 
 		if ( ! $plugin_files ) {
