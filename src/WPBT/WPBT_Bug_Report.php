@@ -217,26 +217,7 @@ class WPBT_Bug_Report {
 			return;
 		}
 
-		$software = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
-		$servers  = array(
-			'Apache' => $is_apache,
-			'NGINX'  => $is_nginx,
-			'IIS'    => $is_IIS,
-			'IIS7'   => $is_iis7,
-		);
-		$filtered = array_filter( $servers );
-
-		if ( empty( $filtered ) ) {
-			return;
-		}
-
-		$server       = array_keys( $filtered );
-		self::$server = end( $server ) . ' (' . PHP_OS . ')';
-
-		// Try to get the server version.
-		preg_match( '/\/([0-9\.\-]+)/', $software, $version );
-
-		self::$server .= $version ? ' ' . $version[1] : '';
+		self::$server = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
 	}
 
 	/**
