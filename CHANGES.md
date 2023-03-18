@@ -1,6 +1,7 @@
 [unreleased]
 * more fixes for 'Report a Bug'
 * updated/added strings
+* some developery stuff
 
 #### 3.3.1 / 2023-03-17 ☘️
 * update readme
