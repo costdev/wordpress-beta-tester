@@ -462,11 +462,11 @@ class WPBT_Bug_Report {
 			$test_report = $this->get_bug_report_template( $format );
 		?>
 		<div style="width: min( 100vw, 520px - .5rem); padding-bottom: 2rem;">
-			<h2><?php esc_html_e( $title ); ?></h2>
+			<h2><?php echo esc_html( $title ); ?></h2>
 			<div style="display: flex; align-items: center; gap: 1rem;">
 				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php esc_html_e( 'File a report', 'wordpress-beta-tester' ); ?></a>
 				<div style="display: flex; align-items: center; gap: .25rem;">
-					<button type="button" class="button button-small" data-clipboard-text="<?php esc_attr_e( $test_report ); ?>"><?php esc_html_e( 'Copy to clipboard', 'wordpress-beta-tester' ); ?></button>
+					<button type="button" class="button button-small" data-clipboard-text="<?php echo esc_attr( $test_report ); ?>"><?php esc_html_e( 'Copy to clipboard', 'wordpress-beta-tester' ); ?></button>
 					<span class="success hidden" style="color: #008a20;" aria-hidden="true"><?php esc_html_e( 'Copied!', 'wordpress-beta-tester' ); ?></span>
 				</div>
 			</div>
