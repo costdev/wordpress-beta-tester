@@ -485,11 +485,10 @@ class WPBT_Bug_Report {
 		global $wp_version;
 
 		$environment = array(
-			'- OS: ' . self::$os,
-			'- Server: ' . self::$server,
-			'- PHP: ' . phpversion(),
 			'- WordPress: ' . $wp_version,
-			'- Browser: ' . self::$browser,
+			'- PHP: ' . phpversion(),
+			'- Server: ' . self::$server,
+			'- Browser: ' . self::$browser . ' (' . self::$os . ')',
 			'- Theme: ' . self::$theme,
 			'- MU-Plugins: ' . self::$muplugins,
 			'- Plugins: ' . self::$plugins,
