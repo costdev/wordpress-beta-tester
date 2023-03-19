@@ -142,58 +142,31 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		wp_register_style( 'wordpress-beta-tester-bug_report', '', '', self::$plugin_version );
-		wp_enqueue_style( 'wordpress-beta-tester-bug_report' );
-		wp_add_inline_style(
-			'wordpress-beta-tester-bug_report',
-			'
-			#wp-admin-bar-wp-beta-tester-report-a-bug {
-				display: block !important;
-			}
-
-			#wp-admin-bar-wp-beta-tester-report-a-bug .ab-icon {
-				margin: 2px 4px 0 0;
-			}
-
-			#wp-admin-bar-wp-beta-tester-report-a-bug .ab-icon::before {
-				content: "\f451";
-			}
-
-			@media (max-width: 782px) {
-				#wp-admin-bar-wp-beta-tester-report-a-bug .ab-icon {
-					margin-left: 4px;
-				}
-
-				#wp-admin-bar-wp-beta-tester-report-a-bug .ab-label {
-					display: none;
-				}
-			}
-			'
+		wp_enqueue_style(
+			'wordpress-beta-tester-bug-report-admin-bar',
+			self::$plugin_base_url . 'src/WPBT/css/bug-report-admin-bar.css',
+			array(),
+			self::$plugin_version
 		);
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ! isset( $_GET['tab'] ) || 'wp_beta_tester_bug_report' !== $_GET['tab'] ) {
-			return;
+		if ( is_admin() && isset( $_GET['tab'] ) && 'wp_beta_tester_bug_report' === $_GET['tab'] ) {
+			wp_enqueue_style(
+				'wordpress-beta-tester-bug-report-template',
+				self::$plugin_base_url . 'src/WPBT/css/bug-report-template.css',
+				array(),
+				self::$plugin_version
+			);
+
+			wp_enqueue_script(
+				'wordpress-beta-tester-bug-report-clipboard',
+				self::$plugin_base_url . 'src/WPBT/js/bug-report-clipboard.js',
+				array( 'jquery', 'clipboard' ),
+				self::$plugin_version,
+				true
+			);
 		}
 
-		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), self::$plugin_version, true );
-		wp_enqueue_script( 'wordpress-beta-tester-bug_report' );
-		wp_add_inline_script(
-			'wordpress-beta-tester-bug_report',
-			'
-				var bugReportClipboard = new ClipboardJS( "#wordpress-beta-tester-bug-reports button" );
-
-				bugReportClipboard.on( "success", function( e ) {
-					var success = jQuery( e.trigger ).next( ".success" );
-
-					success.removeClass( "hidden" );
-
-					setTimeout( function() {
-						success.addClass( "hidden" );
-					}, 3000 );
-				} );
-			'
-		);
 	}
 
 	/**
@@ -544,18 +517,18 @@ class WPBT_Bug_Report {
 	public function print_bug_report_template( $title, $url, $format ) {
 			$test_report = $this->get_bug_report_template( $format );
 		?>
-		<div style="width: min( 100vw, 520px - .5rem); padding-bottom: 2rem;">
+		<div class="template">
 			<h2><?php echo esc_html( $title ); ?></h2>
-			<div style="display: flex; align-items: center; gap: 1rem;">
+			<div class="template-buttons">
 				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php esc_html_e( 'File a report', 'wordpress-beta-tester' ); ?></a>
-				<div style="display: flex; align-items: center; gap: .25rem;">
+				<div class="copy-to-clipboard">
 					<button type="button" class="button button-small" data-clipboard-text="<?php echo esc_attr( str_replace( '&nbsp;', ' ', $test_report ) ); ?>">
 						<?php esc_html_e( 'Copy to clipboard', 'wordpress-beta-tester' ); ?>
 					</button>
-					<span class="success hidden" style="color: #008a20;" aria-hidden="true"><?php esc_html_e( 'Copied!', 'wordpress-beta-tester' ); ?></span>
+					<span class="success hidden" aria-hidden="true"><?php esc_html_e( 'Copied!', 'wordpress-beta-tester' ); ?></span>
 				</div>
 			</div>
-			<?php echo wp_kses_post( '<div class="card" style="margin-top: 1rem;">' . nl2br( $this->get_bug_report_template( $format ) ) . '</div>' ); ?>
+			<?php echo wp_kses_post( '<div class="card">' . nl2br( $this->get_bug_report_template( $format ) ) . '</div>' ); ?>
 		</div>
 		<?php
 	}
