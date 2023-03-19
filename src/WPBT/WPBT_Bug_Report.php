@@ -198,7 +198,8 @@ class WPBT_Bug_Report {
 
 		$agent   = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
 		$os_list = array(
-			'/windows nt 10/i'      => 'Windows 10',
+			// At this time, Windows 11 cannot be detected server-side by examining the User agent.
+			'/windows nt 10/i'      => 'Windows 10/11',
 			'/windows nt 6.3/i'     => 'Windows 8.1',
 			'/windows nt 6.2/i'     => 'Windows 8',
 			'/windows nt 6.1/i'     => 'Windows 7',
@@ -225,11 +226,7 @@ class WPBT_Bug_Report {
 
 		foreach ( $os_list as $regex => $value ) {
 			if ( preg_match( $regex, $agent ) ) {
-				/*
-				 * At this time, Windows 11 cannot be detected
-				 * server-side by examining the User agent.
-				 */
-				self::$os = 'Windows 10' === $value ? 'Windows 10/11' : $value;
+				self::$os = $value;
 			}
 		}
 
