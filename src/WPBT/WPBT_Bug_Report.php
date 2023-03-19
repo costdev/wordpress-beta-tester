@@ -20,6 +20,13 @@ class WPBT_Bug_Report {
 	protected static $options;
 
 	/**
+	 * Holds the plugin's version.
+	 *
+	 * @var string
+	 */
+	protected static $plugin_version;
+
+	/**
 	 * Holds the WP_Beta_Tester instance.
 	 *
 	 * @var WP_Beta_Tester
@@ -100,6 +107,7 @@ class WPBT_Bug_Report {
 	public function __construct( WP_Beta_Tester $wp_beta_tester, $options ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$this->wp_beta_tester = $wp_beta_tester;
+		self::$plugin_version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
 		self::$options        = $options;
 		self::$unknown        = __( 'Could not determine', 'wordpress-beta-tester' );
 		self::$none_activated = __( 'None activated', 'wordpress-beta-tester' );
@@ -124,9 +132,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		$version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
-
-		wp_register_style( 'wordpress-beta-tester-bug_report', '', '', $version );
+		wp_register_style( 'wordpress-beta-tester-bug_report', '', '', self::$plugin_version );
 		wp_enqueue_style( 'wordpress-beta-tester-bug_report' );
 		wp_add_inline_style(
 			'wordpress-beta-tester-bug_report',
@@ -160,7 +166,7 @@ class WPBT_Bug_Report {
 			return;
 		}
 
-		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), $version, true );
+		wp_register_script( 'wordpress-beta-tester-bug_report', '', array( 'jquery', 'clipboard' ), self::$plugin_version, true );
 		wp_enqueue_script( 'wordpress-beta-tester-bug_report' );
 		wp_add_inline_script(
 			'wordpress-beta-tester-bug_report',
