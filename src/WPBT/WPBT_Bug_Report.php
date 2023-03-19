@@ -49,7 +49,7 @@ class WPBT_Bug_Report {
 	protected static $browser;
 
 	/**
-	 * Holds the operating system's name.
+	 * Holds the browser's operating system's name.
 	 *
 	 * @var string
 	 */
@@ -195,7 +195,7 @@ class WPBT_Bug_Report {
 	}
 
 	/**
-	 * Set the operating system's name.
+	 * Set the browser's operating system's name.
 	 *
 	 * @return void
 	 */
