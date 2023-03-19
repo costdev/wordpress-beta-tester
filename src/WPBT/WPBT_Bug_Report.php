@@ -27,6 +27,13 @@ class WPBT_Bug_Report {
 	protected static $plugin_version;
 
 	/**
+	 * Holds the plugin's base URL.
+	 *
+	 * @var string
+	 */
+	protected static $plugin_base_url;
+
+	/**
 	 * Holds the WP_Beta_Tester instance.
 	 *
 	 * @var WP_Beta_Tester
@@ -106,11 +113,14 @@ class WPBT_Bug_Report {
 	 */
 	public function __construct( WP_Beta_Tester $wp_beta_tester, $options ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		$this->wp_beta_tester = $wp_beta_tester;
-		self::$plugin_version = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
-		self::$options        = $options;
-		self::$unknown        = __( 'Could not determine', 'wordpress-beta-tester' );
-		self::$none_activated = __( 'None activated', 'wordpress-beta-tester' );
+		$this->wp_beta_tester  = $wp_beta_tester;
+		self::$plugin_version  = get_file_data( $this->wp_beta_tester->file, array( 'Version' => 'Version' ) )['Version'];
+		$directory             = basename( dirname( $this->wp_beta_tester->file ) );
+		$file                  = basename( $this->wp_beta_tester->file );
+		self::$plugin_base_url = plugin_dir_url( $directory . '/' . $file );
+		self::$options         = $options;
+		self::$unknown         = __( 'Could not determine', 'wordpress-beta-tester' );
+		self::$none_activated  = __( 'None activated', 'wordpress-beta-tester' );
 	}
 
 	/**
