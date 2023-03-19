@@ -239,8 +239,6 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_server() {
-		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
-
 		self::$server = self::$unknown;
 
 		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
