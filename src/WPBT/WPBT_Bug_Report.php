@@ -226,7 +226,11 @@ class WPBT_Bug_Report {
 
 		foreach ( $os_list as $regex => $value ) {
 			if ( preg_match( $regex, $agent ) ) {
-				self::$os = $value;
+				/*
+				 * At this time, Windows 11 cannot be detected
+				 * server-side by examining the User agent.
+				 */
+				self::$os = 'Windows 10' === $value ? 'Windows 10/11' : $value;
 			}
 		}
 
@@ -239,8 +243,6 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_server() {
-		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
-
 		self::$server = self::$unknown;
 
 		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
