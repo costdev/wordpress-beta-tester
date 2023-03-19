@@ -115,6 +115,7 @@ class WPBT_Bug_Report {
 		add_action( 'wp_beta_tester_add_admin_page', array( $this, 'add_admin_page' ), 10, 2 );
 		add_filter( 'wp_beta_tester_add_settings_tabs', array( $this, 'add_settings_tab' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -141,7 +142,7 @@ class WPBT_Bug_Report {
 			#wp-admin-bar-wp-beta-tester-report-a-bug .ab-icon::before {
 				content: "\f451";
 			}
-			
+
 			@media (max-width: 782px) {
 				#wp-admin-bar-wp-beta-tester-report-a-bug .ab-icon {
 					margin-left: 4px;
