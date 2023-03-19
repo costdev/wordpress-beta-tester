@@ -27,13 +27,6 @@ class WPBT_Bug_Report {
 	protected $wp_beta_tester;
 
 	/**
-	 * Holds the operating system's name.
-	 *
-	 * @var string
-	 */
-	protected static $os;
-
-	/**
 	 * Holds the server's name.
 	 *
 	 * @var string
@@ -41,11 +34,26 @@ class WPBT_Bug_Report {
 	protected static $server;
 
 	/**
+	 * Holds the database's extension,
+	 * server version and client version.
+	 *
+	 * @var string
+	 */
+	protected static $database;
+
+	/**
 	 * Holds the browser's name and version.
 	 *
 	 * @var string
 	 */
 	protected static $browser;
+
+	/**
+	 * Holds the browser's operating system's name.
+	 *
+	 * @var string
+	 */
+	protected static $os;
 
 	/**
 	 * Holds the active theme's name.
@@ -177,16 +185,17 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	private function set_environment_data() {
-		$this->set_os();
 		$this->set_server();
+		$this->set_database();
 		$this->set_browser();
+		$this->set_os();
 		$this->set_theme();
 		$this->set_mu_plugins();
 		$this->set_plugins();
 	}
 
 	/**
-	 * Set the operating system's name.
+	 * Set the browser's operating system's name.
 	 *
 	 * @return void
 	 */
@@ -250,6 +259,50 @@ class WPBT_Bug_Report {
 		}
 
 		self::$server = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
+	}
+
+	/**
+	 * Sets the database's extension,
+	 * server version and client version.
+	 *
+	 * @return void
+	 */
+	private function set_database() {
+		global $wpdb;
+
+		self::$database = self::$unknown;
+
+		if ( ! $wpdb ) {
+			return;
+		}
+
+		// Populate the database debug fields.
+		if ( is_resource( $wpdb->dbh ) ) {
+			// Old mysql extension.
+			$extension = 'mysql';
+		} elseif ( is_object( $wpdb->dbh ) ) {
+			// mysqli or PDO.
+			$extension = get_class( $wpdb->dbh );
+		} else {
+			// Unknown sql extension.
+			$extension = null;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$server_version = $wpdb->get_var( 'SELECT VERSION()' );
+
+		if ( isset( $wpdb->use_mysqli ) && $wpdb->use_mysqli ) {
+			$client_version = $wpdb->dbh->client_info;
+		} else {
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
+			if ( preg_match( '|[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}|', mysql_get_client_info(), $matches ) ) {
+				$client_version = $matches[0];
+			} else {
+				$client_version = 'Unavailable';
+			}
+		}
+
+		self::$database = $extension . ' (Server: ' . $server_version . ' / Client: ' . $client_version . ')';
 	}
 
 	/**
@@ -503,6 +556,7 @@ class WPBT_Bug_Report {
 			'- WordPress: ' . $wp_version,
 			'- PHP: ' . phpversion(),
 			'- Server: ' . self::$server,
+			'- Database: ' . self::$database,
 			'- Browser: ' . self::$browser . ' (' . self::$os . ')',
 			'- Theme: ' . self::$theme,
 			'- MU-Plugins: ' . self::$muplugins,
