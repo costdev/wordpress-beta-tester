@@ -552,23 +552,26 @@ class WPBT_Bug_Report {
 
 		$environment = implode( "\n", $environment );
 
-		$heading   = 'wiki' === $format ? '===' : '###';
-		$last_item = 'wiki' === $format ? 'x' : '2';
-		$report    = <<<EOD
+		$is_wiki     = 'wiki' === $format;
+		$heading     = $is_wiki ? '==' : '##';
+		$sub_heading = $is_wiki ? '===' : '###';
+		$last_item   = $is_wiki ? 'x' : '2';
+		$report      = <<<EOD
 		$heading Bug Report
+		$sub_heading Description
 		Describe the bug.
 
-		$heading Environment
+		$sub_heading Environment
 		$environment
 
-		$heading Steps to Reproduce
+		$sub_heading Steps to Reproduce
 		1.&nbsp;
 		$last_item. 🐞 Bug occurs.
 
-		$heading Expected Results
+		$sub_heading Expected Results
 		1.&nbsp; ✅ What should happen.
 
-		$heading Actual Results
+		$sub_heading Actual Results
 		1.&nbsp; ❌ What actually happened.
 		EOD;
 
