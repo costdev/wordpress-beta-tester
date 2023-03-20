@@ -499,7 +499,7 @@ class WPBT_Bug_Report {
 	 */
 	public function print_tab_introduction() {
 		$introduction  = '<p>' . __( 'This area provides bug report templates for pasting into Trac or GitHub.', 'wordpress-beta-tester' ) . '</p>';
-		$introduction .= '<p>' . __( 'After pasting a template into Trac or GitHub, complete the <strong>Steps to Reproduce</strong>, <strong>Expected Results</strong> and <strong>Actual Results</strong> sections.', 'wordpress-beta-tester' ) . '</p>';
+		$introduction .= '<p>' . __( 'After pasting a template into Trac or GitHub, complete the <strong>Description</strong>, <strong>Steps to Reproduce</strong>, <strong>Expected Results</strong> and <strong>Actual Results</strong> sections.', 'wordpress-beta-tester' ) . '</p>';
 		echo wp_kses_post( $introduction );
 	}
 
@@ -515,7 +515,7 @@ class WPBT_Bug_Report {
 			$test_report = $this->get_bug_report_template( $format );
 		?>
 		<div class="template">
-			<h2><?php echo esc_html( $title ); ?></h2>
+			<h3><?php echo esc_html( $title ); ?></h3>
 			<div class="template-buttons">
 				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php esc_html_e( 'File a report', 'wordpress-beta-tester' ); ?></a>
 				<div class="copy-to-clipboard">
@@ -552,23 +552,26 @@ class WPBT_Bug_Report {
 
 		$environment = implode( "\n", $environment );
 
-		$heading   = 'wiki' === $format ? '===' : '###';
-		$last_item = 'wiki' === $format ? 'x' : '2';
-		$report    = <<<EOD
+		$is_wiki     = 'wiki' === $format;
+		$heading     = $is_wiki ? '==' : '##';
+		$sub_heading = $is_wiki ? '===' : '###';
+		$last_item   = $is_wiki ? 'x' : '2';
+		$report      = <<<EOD
 		$heading Bug Report
+		$sub_heading Description
 		Describe the bug.
 
-		$heading Environment
+		$sub_heading Environment
 		$environment
 
-		$heading Steps to Reproduce
+		$sub_heading Steps to Reproduce
 		1.&nbsp;
 		$last_item. 🐞 Bug occurs.
 
-		$heading Expected Results
+		$sub_heading Expected Results
 		1.&nbsp; ✅ What should happen.
 
-		$heading Actual Results
+		$sub_heading Actual Results
 		1.&nbsp; ❌ What actually happened.
 		EOD;
 
