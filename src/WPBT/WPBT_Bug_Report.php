@@ -499,7 +499,7 @@ class WPBT_Bug_Report {
 	 */
 	public function print_tab_introduction() {
 		$introduction  = '<p>' . __( 'This area provides bug report templates for pasting into Trac or GitHub.', 'wordpress-beta-tester' ) . '</p>';
-		$introduction .= '<p>' . __( 'After pasting a template into Trac or GitHub, complete the <strong>Steps to Reproduce</strong>, <strong>Expected Results</strong> and <strong>Actual Results</strong> sections.', 'wordpress-beta-tester' ) . '</p>';
+		$introduction .= '<p>' . __( 'After pasting a template into Trac or GitHub, complete the <strong>Description</strong>, <strong>Steps to Reproduce</strong>, <strong>Expected Results</strong> and <strong>Actual Results</strong> sections.', 'wordpress-beta-tester' ) . '</p>';
 		echo wp_kses_post( $introduction );
 	}
 
