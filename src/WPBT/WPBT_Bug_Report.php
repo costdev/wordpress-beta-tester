@@ -515,7 +515,7 @@ class WPBT_Bug_Report {
 			$test_report = $this->get_bug_report_template( $format );
 		?>
 		<div class="template">
-			<h2><?php echo esc_html( $title ); ?></h2>
+			<h3><?php echo esc_html( $title ); ?></h3>
 			<div class="template-buttons">
 				<a class="button button-small" href="<?php echo esc_url( $url ); ?>" target="_blank"><?php esc_html_e( 'File a report', 'wordpress-beta-tester' ); ?></a>
 				<div class="copy-to-clipboard">
