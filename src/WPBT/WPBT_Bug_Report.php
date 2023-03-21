@@ -508,9 +508,10 @@ class WPBT_Bug_Report {
 	/**
 	 * Print a bug report template.
 	 *
-	 * @param string $title  The title of the bug report template.
-	 * @param string $url    The URL to file a bug report.
-	 * @param string $format The format to use. "wiki" or "markdown".
+	 * @param string $title      The title of the bug report template.
+	 * @param string $search_url The URL to search for existing reports.
+	 * @param string $report_url The URL to file a report.
+	 * @param string $format     The format to use. "wiki" or "markdown".
 	 * @return void
 	 */
 	public function print_bug_report_template( $title, $search_url, $report_url, $format ) {
