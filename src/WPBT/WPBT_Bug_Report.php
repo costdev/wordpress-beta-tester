@@ -512,7 +512,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function print_bug_report_template( $title, $url, $format ) {
-			$test_report = $this->get_bug_report_template( $format );
+		$test_report = $this->get_bug_report_template( $format );
 		?>
 		<div class="template">
 			<h3><?php echo esc_html( $title ); ?></h3>
