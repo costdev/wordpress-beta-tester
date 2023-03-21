@@ -317,7 +317,7 @@ class WP_Beta_Tester {
 		printf( wp_kses_post( '<p>' . __( 'Here are the <a href="%s" target="_blank">commits for the milestone</a>.', 'wordpress-beta-tester' ) . '</p>' ), esc_url( "https://core.trac.wordpress.org/query?status=closed&status=reopened&milestone=$milestone" ) );
 
 		/* translators: %s: link to trac search */
-		printf( wp_kses_post( '<p>' . "&nbsp;$bug&nbsp;" . __( 'Did you find a bug? <a href="%s" target="_blank">Report it</a>.', 'wordpress-beta-tester' ) . '</p>' ), esc_url( $report_url ) );
+		printf( wp_kses_post( '<p>' . "&nbsp;$bug&nbsp;" . __( 'Found a bug? <a href="%s">Report it</a>.', 'wordpress-beta-tester' ) . '</p>' ), esc_url( $report_url ) );
 
 		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 		if ( current_user_can( $capability ) ) {
