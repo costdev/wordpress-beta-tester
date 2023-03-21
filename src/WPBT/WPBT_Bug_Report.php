@@ -499,7 +499,7 @@ class WPBT_Bug_Report {
 	 *
 	 * @return void
 	 */
-	public function print_tab_introduction() {
+	private function print_tab_introduction() {
 		$introduction  = '<p>' . __( 'This area provides bug report templates for pasting into Trac or GitHub.', 'wordpress-beta-tester' ) . '</p>';
 		$introduction .= '<p>' . __( 'After pasting a template into Trac or GitHub, complete the <strong>Description</strong>, <strong>Steps to Reproduce</strong>, <strong>Expected Results</strong> and <strong>Actual Results</strong> sections.', 'wordpress-beta-tester' ) . '</p>';
 		echo wp_kses_post( $introduction );
@@ -514,7 +514,7 @@ class WPBT_Bug_Report {
 	 * @param string $format     The format to use. "wiki" or "markdown".
 	 * @return void
 	 */
-	public function print_bug_report_template( $title, $search_url, $report_url, $format ) {
+	private function print_bug_report_template( $title, $search_url, $report_url, $format ) {
 		$test_report = $this->get_bug_report_template( $format );
 		?>
 		<div class="template">
@@ -540,7 +540,7 @@ class WPBT_Bug_Report {
 	 * @param string $format The format to use. "wiki" or "markdown".
 	 * @return string
 	 */
-	public function get_bug_report_template( $format ) {
+	private function get_bug_report_template( $format ) {
 		global $wp_version;
 
 		$environment = array(
