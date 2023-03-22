@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.3.5 / 2023-02-22
 * updated dashboard widget with some better dynamic information
 * `Report a Bug`: introduce search button
 * updated strings
