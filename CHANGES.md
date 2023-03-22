@@ -2,6 +2,7 @@
 * updated dashboard widget with some better dynamic information
 * `Report a Bug`: introduce search button
 * updated strings
+* `Report a Bug`: updated database string capture
 
 #### 3.3.4 / 2023-03-20
 * PHP 5.6 and `EOD`, why we can't have nice looking code in the editor
