@@ -279,8 +279,17 @@ class WPBT_Bug_Report {
 		$server_version = $wpdb->get_var( 'SELECT VERSION()' );
 
 		if ( isset( $wpdb->use_mysqli ) && $wpdb->use_mysqli ) {
-			$client_version = $wpdb->dbh->client_info;
-			$client_version = explode( ' - ', $client_version )[0];
+			if ( property_exists( $wpdb->dbh, 'client_info' ) ) {
+				$client_version = $wpdb->dbh->client_info;
+				$client_version = explode( ' - ', $client_version )[0];
+			} elseif ( isset( $GLOBALS['@pdo'] ) && $GLOBALS['@pdo'] instanceof PDO ) {
+				// phpcs:disable WordPress.DB.RestrictedClasses.mysql__PDO
+				$server_version = $GLOBALS['@pdo']->getAttribute( PDO::ATTR_SERVER_VERSION );
+				$client_version = $GLOBALS['@pdo']->getAttribute( PDO::ATTR_CLIENT_VERSION );
+				// phpcs:enable WordPress.DB.RestrictedClasses.mysql__PDO
+			} else {
+				$client_version = 'Unavailable';
+			}
 		} else {
 			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
 			if ( preg_match( '|[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}|', mysql_get_client_info(), $matches ) ) {
