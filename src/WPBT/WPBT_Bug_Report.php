@@ -287,6 +287,8 @@ class WPBT_Bug_Report {
 				$server_version = $GLOBALS['@pdo']->getAttribute( PDO::ATTR_SERVER_VERSION );
 				$client_version = $GLOBALS['@pdo']->getAttribute( PDO::ATTR_CLIENT_VERSION );
 				// phpcs:enable WordPress.DB.RestrictedClasses.mysql__PDO
+			} else {
+				$client_version = 'Unavailable';
 			}
 		} else {
 			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
