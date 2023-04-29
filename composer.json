@@ -59,6 +59,9 @@
     "scripts": {
         "post-update-cmd": [
             "wp i18n make-pot . languages/wordpress-beta-tester.pot --allow-root"
+        ],
+        "wpcs": [
+            "vendor/bin/phpcbf .; vendor/bin/phpcs ."
         ]
     }
 }
