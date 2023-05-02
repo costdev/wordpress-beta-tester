@@ -1,4 +1,6 @@
 [unreleased]
+* update composer.json
+* update GitHub Actions
 
 #### 3.3.7 / 2023-03-28
 * better fix for spacing of bug report copy
