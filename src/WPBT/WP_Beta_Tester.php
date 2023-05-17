@@ -164,7 +164,19 @@ class WP_Beta_Tester {
 		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
 
-		return wp_remote_get( $url, $args );
+		$response = wp_remote_get( $url, $args );
+		$body     = json_decode( wp_remote_retrieve_body( $response ) );
+
+		foreach ( $body->offers as &$offer ) {
+			if ( 'latest' === $offer->response && $offer->current !== get_bloginfo( 'version' ) ) {
+				$offer->response = 'upgrade';
+			}
+		}
+		unset( $offer );
+
+		$response['body'] = wp_json_encode( $body );
+
+		return $response;
 	}
 
 	/**
@@ -178,14 +190,6 @@ class WP_Beta_Tester {
 		$next_versions = ( new WPBT_Core( $this, static::$options ) )->calculate_next_versions();
 		$wp_version    = get_bloginfo( 'version' );
 		$channel       = self::$core_update_channel_constant ? self::$core_update_channel_constant : self::$options['channel'];
-
-		// In case a point update is available and stream set for 'beta' or 'rc'.
-		if ( false !== strpos( $channel, 'development' )
-			&& ( isset( static::$options['stream-option'] ) && in_array( static::$options['stream-option'], array( 'rc', 'beta' ) ) )
-		) {
-			$channel = '';
-			$url     = remove_query_arg( 'channel', $url );
-		}
 
 		switch ( $channel ) {
 			case 'branch-development':

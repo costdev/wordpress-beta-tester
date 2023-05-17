@@ -1,7 +1,7 @@
 [unreleased]
 * update composer.json
 * update GitHub Actions
-* update `WP_Beta_Tester::channel_switching_modification()` to correctly return non `-alpha` check if set for 'Bleeding Edge' and 'Beta/RC Only' or 'RC Only' when a point update is available
+* update to correctly return 'upgrade' offer if set for 'Bleeding Edge' and 'Beta/RC Only' or 'RC Only' when a point update is available
 
 #### 3.3.7 / 2023-03-28
 * better fix for spacing of bug report copy
