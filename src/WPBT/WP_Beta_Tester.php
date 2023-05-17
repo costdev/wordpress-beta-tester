@@ -184,6 +184,7 @@ class WP_Beta_Tester {
 			&& ( isset( static::$options['stream-option'] ) && in_array( static::$options['stream-option'], array( 'rc', 'beta' ) ) )
 		) {
 			$channel = '';
+			$url     = remove_query_arg( 'channel', $url );
 		}
 
 		switch ( $channel ) {
