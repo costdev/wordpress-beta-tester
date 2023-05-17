@@ -165,10 +165,42 @@ class WP_Beta_Tester {
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
 
 		$response = wp_remote_get( $url, $args );
-		$body     = json_decode( wp_remote_retrieve_body( $response ) );
+
+		if ( is_array( $response ) ) {
+			$response = $this->maybe_switch_latest_to_upgrade( $response );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Determines whether the 'latest' offer should be changed to an 'upgrade' offer.
+	 *
+	 * @param array $response The response from the API check.
+	 * @return array The response, possibly modified.
+	 */
+	private function maybe_switch_latest_to_upgrade( $response ) {
+		$body = wp_remote_retrieve_body( $response );
+
+		if ( '' === trim( $body ) ) {
+			return $response;
+		}
+
+		$body            = json_decode( $body );
+		$wp_version      = get_bloginfo( 'version' );
+		$upgrade_version = '';
 
 		foreach ( $body->offers as &$offer ) {
-			if ( 'latest' === $offer->response && $offer->current !== get_bloginfo( 'version' ) ) {
+			if ( 'upgrade' === $offer->response ) {
+				$upgrade_version = $offer->version;
+				continue;
+			}
+
+			if ( 'latest' === $offer->response
+				&& $wp_version !== $offer->current
+				&& ( version_compare( $wp_version, $upgrade_version, '<' )
+					|| version_compare( $wp_version, $offer->current, '<' ) )
+			) {
 				$offer->response = 'upgrade';
 			}
 		}
