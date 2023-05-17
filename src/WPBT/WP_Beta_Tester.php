@@ -179,13 +179,20 @@ class WP_Beta_Tester {
 		$wp_version    = get_bloginfo( 'version' );
 		$channel       = self::$core_update_channel_constant ? self::$core_update_channel_constant : self::$options['channel'];
 
+		// In case a point update is available and stream set for 'beta' or 'rc'.
+		if ( false !== strpos( $channel, 'development' )
+			&& ( isset( static::$options['stream-option'] ) && in_array( static::$options['stream-option'], array( 'rc', 'beta' ) ) )
+		) {
+			$channel = '';
+		}
+
 		switch ( $channel ) {
 			case 'branch-development':
 				$url = add_query_arg( 'version', $next_versions['point'] . '-alpha', $url );
 				break;
 			case 'development':
 				if ( false !== strpos( $wp_version, $next_versions['point'] )
-				|| version_compare( $wp_version, $next_versions['point'], '<' )
+					|| version_compare( $wp_version, $next_versions['point'], '<' )
 				) {
 					$url = add_query_arg( 'version', $next_versions['release'] . '-alpha', $url );
 				}
