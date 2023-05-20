@@ -1,4 +1,5 @@
 [unreleased]
+* try to update point release if set for development beta/rc
 
 #### 3.3.8 / 2023-05-18
 * update composer.json

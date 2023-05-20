@@ -223,6 +223,13 @@ class WP_Beta_Tester {
 		$wp_version    = get_bloginfo( 'version' );
 		$channel       = self::$core_update_channel_constant ? self::$core_update_channel_constant : self::$options['channel'];
 
+		if ( false !== strpos( $channel, 'development' )
+			//&& ! empty( self::$options['stream-option'] )
+			&& version_compare( $wp_version, $next_versions['point'], '<' )
+		) {
+			return $url;
+		}
+
 		switch ( $channel ) {
 			case 'branch-development':
 				$url = add_query_arg( 'version', $next_versions['point'] . '-alpha', $url );
