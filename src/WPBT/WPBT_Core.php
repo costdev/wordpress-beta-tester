@@ -371,7 +371,6 @@ class WPBT_Core {
 	public function get_next_version( $preferred_version ) {
 		$beta_rc      = ! empty( self::$options['stream-option'] );
 		$next_version = $this->calculate_next_versions();
-		// unset( $next_version['point'] );
 
 		// Site is not on a beta/RC stream so use the preferred version.
 		if ( ! $beta_rc && ! empty( $next_version ) && ! self::$core_update_stream_constant ) {
