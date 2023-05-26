@@ -129,6 +129,10 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function load_hooks() {
+		if ( is_user_logged_in() ) {
+			return;
+		}
+		
 		add_action( 'wp_beta_tester_add_admin_bar_menu', array( $this, 'add_admin_bar_menu' ) );
 		add_action( 'wp_beta_tester_add_admin_page', array( $this, 'add_admin_page' ), 10, 2 );
 		add_filter( 'wp_beta_tester_add_settings_tabs', array( $this, 'add_settings_tab' ) );
@@ -142,14 +146,12 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		if ( is_user_logged_in() ) {
-			wp_enqueue_style(
-				'wordpress-beta-tester-bug-report-admin-bar',
-				self::$plugin_base_url . 'src/WPBT/css/bug-report-admin-bar.css',
-				array(),
-				self::$plugin_version
-			);
-		}
+		wp_enqueue_style(
+			'wordpress-beta-tester-bug-report-admin-bar',
+			self::$plugin_base_url . 'src/WPBT/css/bug-report-admin-bar.css',
+			array(),
+			self::$plugin_version
+		);
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( is_admin() && isset( $_GET['tab'] ) && 'wp_beta_tester_bug_report' === $_GET['tab'] ) {
