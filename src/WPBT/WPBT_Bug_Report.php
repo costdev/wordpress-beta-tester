@@ -129,7 +129,7 @@ class WPBT_Bug_Report {
 	 * @return void
 	 */
 	public function load_hooks() {
-		if ( is_user_logged_in() ) {
+		if ( ! is_user_logged_in() ) {
 			return;
 		}
 		
