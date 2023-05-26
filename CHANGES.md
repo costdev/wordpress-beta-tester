@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.4.1 / 2023-05-26
 * **Report a Bug** only for logged in users
 
 #### 3.4.0 / 2023-05-21
