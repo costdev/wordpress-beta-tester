@@ -1,4 +1,5 @@
 [unreleased]
+* **Report a Bug** only for logged in users
 
 #### 3.4.0 / 2023-05-21
 * update to point release if set for development beta/rc and new point release occurs
