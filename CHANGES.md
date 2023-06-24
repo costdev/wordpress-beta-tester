@@ -1,4 +1,5 @@
 [unreleased]
+* update dashboard widget for MarComm publishing of posts
 
 #### 3.4.1 / 2023-05-26
 * **Report a Bug** only for logged in users
