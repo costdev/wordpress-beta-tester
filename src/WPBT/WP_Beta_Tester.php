@@ -179,39 +179,40 @@ class WP_Beta_Tester {
 		$response = wp_remote_get( $url, $args );
 
 		if ( is_array( $response ) ) {
-			$response = $this->maybe_switch_latest_to_upgrade( $response );
+			$response = $this->switch_offer_response( $response );
 		}
 
 		return $response;
 	}
 
 	/**
-	 * Determines whether the 'latest' offer should be changed to an 'upgrade' offer.
+	 * Change offer response as appropriate.
+	 * This results in correctly displaying the 'Re-install' button on update-core.php
 	 *
 	 * @param array $response The response from the API check.
 	 * @return array The response, possibly modified.
 	 */
-	private function maybe_switch_latest_to_upgrade( $response ) {
+	private function switch_offer_response( $response ) {
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( '' === trim( $body ) ) {
 			return $response;
 		}
 
-		$body            = json_decode( $body );
-		$wp_version      = get_bloginfo( 'version' );
-		$upgrade_version = '';
+		$body       = json_decode( $body );
+		$wp_version = get_bloginfo( 'version' );
 
 		foreach ( $body->offers as &$offer ) {
-			if ( 'upgrade' === $offer->response ) {
-				$upgrade_version = $offer->version;
-				continue;
+
+			if ( 'development' === $offer->response
+				&& version_compare( $wp_version, $offer->current, '=' )
+				&& ! empty( self::$options['stream-option'] )
+			) {
+				$offer->response = 'latest';
 			}
 
 			if ( 'latest' === $offer->response
-				&& $wp_version !== $offer->current
-				&& ( version_compare( $wp_version, $upgrade_version, '<' )
-					|| version_compare( $wp_version, $offer->current, '<' ) )
+				&& version_compare( $wp_version, $offer->current, '<' )
 			) {
 				$offer->response = 'upgrade';
 			}
