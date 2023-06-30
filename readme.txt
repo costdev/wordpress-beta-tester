@@ -7,7 +7,7 @@ License URI: https://www.opensource.org/licenses/GPL-2.0
 Requires at least: 3.1
 Requires PHP: 5.6
 Tested up to: 6.3
-Stable Tag: 3.4.1
+Stable Tag: 3.5.0
 
 Allows you to easily upgrade for testing the next versions of WordPress.
 
@@ -37,6 +37,13 @@ There is a **Report a Bug** admin menu item to directly take the user to the **R
 PRs are welcome on [GitHub](https://github.com/afragen/wordpress-beta-tester).
 
 ## Changelog
+
+#### 3.5.0 / 2023-06-30
+* update dashboard widget for MarComm publishing of posts
+* update to correctly identify Opera browser in `Report a Bug`
+* update API query when channel set to beta or RC and version is non-current
+* fix `WP_Beta_Tester::switch_update_offer()` to correctly display 'Update' or 'Re-install' buttons on update-core.php
+* remove unused item from **Extra Settings** tab
 
 #### 3.4.1 / 2023-05-26
 * **Report a Bug** only for logged in users

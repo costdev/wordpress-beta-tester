@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 3.5.0 / 2023-06-30
 * update dashboard widget for MarComm publishing of posts
 * update to correctly identify Opera browser in `Report a Bug`
 * update API query when channel set to beta or RC and version is non-current
