@@ -91,6 +91,20 @@ class WPBT_Extras {
 				'description' => esc_html__( 'Disable sending emails to the admin user for successful autoupdates. Only emails indicating failures of the autoupdate process are sent.', 'wordpress-beta-tester' ),
 			)
 		);
+
+		add_settings_field(
+			'hide_report_a_bug',
+			null,
+			array( 'WPBT_Settings', 'checkbox_setting' ),
+			'wp_beta_tester_extras',
+			'wp_beta_tester_email',
+			array(
+				'id'          => 'hide_report_a_bug',
+				'title'       => esc_html__( 'Hide Report a Bug menu.', 'wordpress-beta-tester' ),
+				'description' => esc_html__( 'Hide the Report a Bug feature.', 'wordpress-beta-tester' ),
+				'class'       => ! apply_filters( 'wpbt_hide_report_a_bug', false ) || isset( self::$options['hide_report_a_bug'] ) ? '' : 'hidden',
+			)
+		);
 	}
 
 	/**
