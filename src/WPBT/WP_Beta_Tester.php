@@ -165,7 +165,7 @@ class WP_Beta_Tester {
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
 		// pretend_releases[]=5.6-beta2 query arg example.
 
-		/**
+		/*
 		 * API switches channel to `stable` if `version` query arg is not current version.
 		 * Removing `version` query arg defaults to current version in API response
 		 * returning the expected response for a beta or RC channel request.
