@@ -100,8 +100,7 @@ class WPBT_Extras {
 			'wp_beta_tester_email',
 			array(
 				'id'          => 'hide_report_a_bug',
-				'title'       => esc_html__( 'Hide Report a Bug menu.', 'wordpress-beta-tester' ),
-				'description' => esc_html__( 'Hide the Report a Bug feature.', 'wordpress-beta-tester' ),
+				'title'       => esc_html__( 'Hide Report a Bug feature.', 'wordpress-beta-tester' ),
 				'class'       => ! apply_filters( 'wpbt_hide_report_a_bug', false ) || isset( self::$options['hide_report_a_bug'] ) ? '' : 'hidden',
 			)
 		);
