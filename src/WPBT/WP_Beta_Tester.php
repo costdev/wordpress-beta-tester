@@ -362,13 +362,24 @@ class WP_Beta_Tester {
 		$bug            = '<span class="dashicons dashicons-buddicons-replies"></span>';
 		$preferred      = $this->get_preferred_from_update_core();
 		$update_version = ( new WPBT_Core( $this, self::$options ) )->get_next_version( $preferred->version );
-		$report_url     = add_query_arg(
-			array(
-				'page' => 'wp-beta-tester',
-				'tab'  => 'wp_beta_tester_bug_report',
-			),
-			is_multisite() ? network_admin_url( 'settings.php' ) : admin_url( 'tools.php' )
-		);
+		$report_url     = '';
+
+		if ( ! apply_filters( 'wpbt_hide_report_a_bug', false ) ) {
+			$report_url = add_query_arg(
+				array(
+					'page' => 'wp-beta-tester',
+					'tab'  => 'wp_beta_tester_bug_report',
+				),
+				is_multisite() ? network_admin_url( 'settings.php' ) : admin_url( 'tools.php' )
+			);
+		} elseif ( is_plugin_active( 'report-a-bug/report-a-bug.php' ) ) {
+			$report_url = add_query_arg(
+				array(
+					'page' => 'report-a-bug',
+				),
+				is_multisite() ? network_admin_url( 'settings.php' ) : admin_url( 'tools.php' )
+			);
+		}
 
 		/* translators: %s: WordPress version */
 		printf( wp_kses_post( '<p>' . __( 'Please help test <strong>WordPress %s</strong>.', 'wordpress-beta-tester' ) . '</p>' ), esc_attr( $milestone ) );

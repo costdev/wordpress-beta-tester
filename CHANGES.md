@@ -1,6 +1,7 @@
 [unreleased]
 * add setting in `Extra Settings` to hide `Report a Bug`
 * add filter `wpbt_hide_report_a_bug`
+* update if `Report a Bug` plugin active
 
 #### 3.5.0 / 2023-06-30
 * update dashboard widget for MarComm publishing of posts
