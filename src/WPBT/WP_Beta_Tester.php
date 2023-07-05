@@ -390,6 +390,15 @@ class WP_Beta_Tester {
 		/* translators: %1: link to closed and reopened trac tickets on current milestone */
 		printf( wp_kses_post( '<p>' . __( 'Here are the <a href="%s" target="_blank">commits for the milestone</a>.', 'wordpress-beta-tester' ) . '</p>' ), esc_url( "https://core.trac.wordpress.org/query?status=closed&status=reopened&milestone=$milestone" ) );
 
+		if ( empty( $report_url ) ) {
+			$report_url = add_query_arg(
+				array(
+					'page' => 'wp-beta-tester',
+					'tab'  => 'wp_beta_tester_extras',
+				),
+				is_multisite() ? network_admin_url( 'settings.php' ) : admin_url( 'tools.php' )
+			);
+		}
 		/* translators: %s: link to Report a Bug tab */
 		printf( wp_kses_post( '<p>' . "&nbsp;$bug&nbsp;" . __( 'Found a bug? <a href="%s">Report it</a>!', 'wordpress-beta-tester' ) . '</p>' ), esc_url( $report_url ) );
 
