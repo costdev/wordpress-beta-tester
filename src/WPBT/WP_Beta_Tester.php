@@ -137,7 +137,7 @@ class WP_Beta_Tester {
 	 * @param  mixed  $result $result from filter.
 	 * @param  array  $args   Array of filter args.
 	 * @param  string $url    URL from filter.
-	 * @return /stdClass Output from wp_remote_get().
+	 * @return stdClass Output from wp_remote_get().
 	 */
 	public function filter_http_request( $result, $args, $url ) {
 		if ( $result || isset( $args['_beta_tester'] ) ) {
@@ -165,63 +165,7 @@ class WP_Beta_Tester {
 		// $url = add_query_arg( 'pretend_releases', array( '5.6-beta2' ), $url );
 		// pretend_releases[]=5.6-beta2 query arg example.
 
-		/*
-		 * API switches channel to `stable` if `version` query arg is not current version.
-		 * Removing `version` query arg defaults to current version in API response
-		 * returning the expected response for a beta or RC channel request.
-		 *
-		 * https://api.wordpress.org/core/version-check/1.7/?channel=beta
-		 */
-		if ( ! empty( self::$options['stream-option'] ) ) {
-			$url = remove_query_arg( 'version', $url );
-		}
-
-		$response = wp_remote_get( $url, $args );
-
-		if ( is_array( $response ) ) {
-			$response = $this->switch_offer_response( $response );
-		}
-
-		return $response;
-	}
-
-	/**
-	 * Change offer response as appropriate.
-	 * This results in correctly displaying the 'Re-install' button on update-core.php
-	 *
-	 * @param array $response The response from the API check.
-	 * @return array The response, possibly modified.
-	 */
-	private function switch_offer_response( $response ) {
-		$body = wp_remote_retrieve_body( $response );
-
-		if ( '' === trim( $body ) ) {
-			return $response;
-		}
-
-		$body       = json_decode( $body );
-		$wp_version = get_bloginfo( 'version' );
-
-		foreach ( $body->offers as &$offer ) {
-
-			if ( 'development' === $offer->response
-				&& version_compare( $wp_version, $offer->current, '=' )
-				&& ! empty( self::$options['stream-option'] )
-			) {
-				$offer->response = 'latest';
-			}
-
-			if ( 'latest' === $offer->response
-				&& version_compare( $wp_version, $offer->current, '<' )
-			) {
-				$offer->response = 'upgrade';
-			}
-		}
-		unset( $offer );
-
-		$response['body'] = wp_json_encode( $body );
-
-		return $response;
+		return wp_remote_get( $url, $args );
 	}
 
 	/**
