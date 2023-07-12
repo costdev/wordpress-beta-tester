@@ -1,5 +1,7 @@
 [unreleased]
 
+* fix dev-notes URL
+
 #### 3.5.1 / 2023-07-06
 * add setting in `Extra Settings` to hide `Report a Bug`
 * add filter `wpbt_hide_report_a_bug`
